@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuantumLeap Studios | Digital Innovation</title>
+    <title>Ethereal Echoes Gallery | Conceptual Art & Digital Sculptures</title>
     <style>
-        /* CSS Reset and Global Styles */
+        /* --- General Reset & Variables --- */
         :root {
-            --bg-color: #121212;
-            --primary-color: #1a1a1a;
-            --secondary-color: #242424;
-            --accent-color: #00A8E8;
-            --text-primary: #FFFFFF;
-            --text-secondary: #B3B3B3;
-            --font-main: 'Poppins', sans-serif;
-            --font-body: 'Roboto', sans-serif;
+            --color-bg-dark: #0A0A0A;
+            --color-bg-medium: #151515;
+            --color-text-light: #F0F0F0;
+            --color-text-muted: #B0B0B0;
+            --color-accent-gold: #D4AF37; /* A subtle, refined gold */
+            --color-accent-blue: #00A8E8; /* A vibrant, deep blue for highlights */
+
+            --font-heading: 'Cinzel Decorative', serif; /* For a dramatic, artistic feel */
+            --font-body: 'Montserrat', sans-serif; /* Clean and modern readability */
+
+            --spacing-unit: 1rem;
         }
 
         * {
@@ -29,46 +32,75 @@
 
         body {
             font-family: var(--font-body);
-            background-color: var(--bg-color);
-            color: var(--text-primary);
+            color: var(--color-text-light);
+            background-color: var(--color-bg-dark);
             line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll from animations */
         }
 
-        /* Typography */
-        h1, h2, h3, h4 {
-            font-family: var(--font-main);
-            color: var(--text-primary);
-            margin-bottom: 1rem;
+        /* --- Typography --- */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            color: var(--color-text-light);
+            margin-bottom: var(--spacing-unit);
+            font-weight: normal; /* Override default bold for artistic look */
         }
 
-        h1 { font-size: 3.5rem; line-height: 1.1; }
-        h2 { font-size: 2.5rem; }
-        h3 { font-size: 1.5rem; color: var(--accent-color); }
-        p { color: var(--text-secondary); margin-bottom: 1rem; }
-        a { color: var(--accent-color); text-decoration: none; }
+        h1 { font-size: 4.5rem; line-height: 1.1; letter-spacing: 2px; }
+        h2 { font-size: 3rem; letter-spacing: 1px; }
+        h3 { font-size: 1.8rem; color: var(--color-accent-gold); }
+        p { font-size: 1.1rem; color: var(--color-text-muted); margin-bottom: var(--spacing-unit) * 1.5; }
+        a { color: var(--color-accent-gold); text-decoration: none; transition: color 0.3s ease; }
+        a:hover { color: var(--color-accent-blue); }
 
-        /* Layout */
+        /* --- Layout & Structure --- */
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 var(--spacing-unit) * 2;
+            position: relative;
+            z-index: 2; /* Ensure content is above background effects */
         }
 
         section {
-            padding: 6rem 0;
-            border-bottom: 1px solid var(--secondary-color);
+            padding: var(--spacing-unit) * 8 0;
+            position: relative;
+            overflow: hidden; /* Contains any internal animations/bleeds */
         }
 
-        /* Header & Navigation */
+        .section-title {
+            text-align: center;
+            margin-bottom: var(--spacing-unit) * 6;
+            position: relative;
+            padding-bottom: var(--spacing-unit);
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 2px;
+            background-color: var(--color-accent-gold);
+        }
+
+        /* --- Utility Classes --- */
+        .text-center { text-align: center; }
+
+        /* --- Header & Navigation --- */
         .header {
-            background-color: rgba(18, 18, 18, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0;
+            background: linear-gradient(180deg, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.6) 70%, rgba(10,10,10,0) 100%);
+            padding: var(--spacing-unit) * 1.5 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            transition: background-color 0.3s ease;
+            transition: background 0.4s ease;
+        }
+        .header.scrolled {
+            background-color: var(--color-bg-dark);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.3);
         }
 
         .navbar {
@@ -78,247 +110,402 @@
         }
 
         .logo {
-            font-family: var(--font-main);
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-primary);
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: var(--color-text-light);
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
         }
-
         .logo span {
-            color: var(--accent-color);
+            color: var(--color-accent-gold);
+        }
+        .logo:hover {
+            color: var(--color-accent-blue);
         }
 
         .nav-links {
             list-style: none;
             display: flex;
+            align-items: center;
         }
 
         .nav-links li {
-            margin-left: 2rem;
+            margin-left: var(--spacing-unit) * 3;
         }
 
         .nav-links a {
-            color: var(--text-primary);
+            color: var(--color-text-muted);
             font-weight: 500;
+            font-size: 1.05rem;
             position: relative;
-            padding: 0.5rem 0;
-            transition: color 0.3s ease;
+            padding: var(--spacing-unit) * 0.5 0;
+            letter-spacing: 0.5px;
         }
-
         .nav-links a::after {
             content: '';
             position: absolute;
             width: 0;
-            height: 2px;
-            background: var(--accent-color);
+            height: 1px;
+            background: var(--color-accent-gold);
             bottom: 0;
             left: 0;
             transition: width 0.3s ease;
         }
-
         .nav-links a:hover {
-            color: var(--accent-color);
+            color: var(--color-text-light);
         }
-
         .nav-links a:hover::after {
             width: 100%;
+            background: var(--color-accent-blue);
         }
-
+        
         .hamburger {
             display: none;
             cursor: pointer;
             flex-direction: column;
-            gap: 5px;
+            gap: 6px;
+            z-index: 1001; /* Above mobile menu */
         }
-
         .hamburger .bar {
-            width: 25px;
-            height: 3px;
-            background-color: var(--text-primary);
+            width: 30px;
+            height: 2px;
+            background-color: var(--color-text-light);
             border-radius: 5px;
             transition: all 0.3s ease-in-out;
         }
 
-
-        /* Hero Section */
+        /* --- Hero Section --- */
         #hero {
+            position: relative;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            min-height: 100vh;
-            padding-top: 80px; /* Offset for fixed header */
+            background: linear-gradient(135deg, var(--color-bg-dark) 0%, #1a0f21 50%, var(--color-bg-dark) 100%);
+            overflow: hidden;
+            padding-top: 0; /* Full height */
         }
 
-        #hero h1 {
-            background: linear-gradient(90deg, var(--text-primary), var(--accent-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1.5rem;
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1549490216-2d334546416f?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1800') no-repeat center center/cover;
+            opacity: 0.2; /* Subtly integrated */
+            z-index: 1;
+            transform: scale(1.05); /* Slight scale for depth */
         }
-        
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .hero-content h1 {
+            color: var(--color-text-light);
+            text-shadow: 0 0 15px rgba(0,0,0,0.5);
+            margin-bottom: var(--spacing-unit) * 2;
+        }
         .hero-content p {
-            max-width: 600px;
-            margin: 0 auto 2rem auto;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto var(--spacing-unit) * 3 auto;
+            color: var(--color-text-light);
         }
-        
+
         .btn {
             display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--text-primary);
-            padding: 0.8rem 1.8rem;
+            background-color: var(--color-accent-gold);
+            color: var(--color-bg-dark);
+            padding: var(--spacing-unit) * 1.2 var(--spacing-unit) * 2.5;
             border-radius: 50px;
             font-weight: 700;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-family: var(--font-body);
+            letter-spacing: 0.5px;
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 25px rgba(212,175,55,0.2);
+            font-size: 1.1rem;
         }
-        
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 168, 232, 0.2);
+            transform: translateY(-5px);
+            background-color: var(--color-accent-blue);
+            color: var(--color-text-light);
+            box-shadow: 0 12px 30px rgba(0, 168, 232, 0.3);
         }
 
-        /* Services Section */
-        .section-title {
-            text-align: center;
-            margin-bottom: 4rem;
+        /* --- Gallery Section --- */
+        #gallery {
+            background-color: var(--color-bg-medium);
         }
-        
-        .services-grid {
+
+        .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: var(--spacing-unit) * 3;
         }
 
-        .service-card {
-            background-color: var(--primary-color);
-            padding: 2.5rem;
-            border-radius: 10px;
-            border: 1px solid var(--secondary-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        .gallery-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
         }
-
-        .service-card .icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--accent-color);
-        }
-
-        /* About Section */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-content img {
+        .gallery-item img {
             width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            height: 350px; /* Consistent height for art pieces */
+            object-fit: cover;
+            display: block;
+            filter: grayscale(80%) brightness(0.7);
+            transition: filter 0.5s ease;
         }
-        
-        /* Contact Section */
-        #contact {
+        .gallery-item:hover img {
+            filter: grayscale(0%) brightness(1);
+        }
+
+        .item-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            padding: var(--spacing-unit) * 2;
+            opacity: 0;
+            transform: translateY(100%);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            text-align: left;
+        }
+        .gallery-item:hover .item-info {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .item-info h4 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            margin-bottom: var(--spacing-unit) * 0.5;
+            color: var(--color-accent-gold);
+        }
+        .item-info p {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            margin-bottom: 0;
+        }
+
+        /* --- Vision Section --- */
+        #vision {
+            background: radial-gradient(circle at center, var(--color-bg-medium) 0%, var(--color-bg-dark) 100%);
             text-align: center;
         }
-        
-        .contact-content {
-            max-width: 700px;
+        .vision-content {
+            max-width: 900px;
             margin: 0 auto;
         }
+        .vision-content h2 {
+            margin-bottom: var(--spacing-unit) * 3;
+        }
+        .vision-content p {
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing-unit) * 3;
+        }
         
-        /* Footer */
-        .footer {
+        /* --- Contact Section --- */
+        #contact {
+            background-color: var(--color-bg-dark);
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-unit) * 4;
+            align-items: center;
+        }
+        .contact-info h3 {
+            margin-bottom: var(--spacing-unit) * 2;
+        }
+        .contact-info p {
+            margin-bottom: var(--spacing-unit);
+        }
+        .contact-info p strong {
+            color: var(--color-text-light);
+        }
+
+        .contact-form {
+            background-color: var(--color-bg-medium);
+            padding: var(--spacing-unit) * 3;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        .contact-form label {
+            display: block;
+            margin-bottom: var(--spacing-unit) * 0.5;
+            color: var(--color-text-light);
+            font-weight: 500;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: var(--spacing-unit);
+            margin-bottom: var(--spacing-unit) * 1.5;
+            border: 1px solid var(--secondary-color);
             background-color: var(--primary-color);
-            padding: 3rem 0;
-            text-align: center;
-            border-top: 1px solid var(--secondary-color);
-        }
-        
-        .social-links a {
-            margin: 0 0.75rem;
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
-        }
-        
-        .social-links a:hover {
             color: var(--text-primary);
+            border-radius: 5px;
+            font-family: var(--font-body);
+            font-size: 1rem;
         }
-        
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--color-accent-gold);
+            box-shadow: 0 0 0 2px rgba(212,175,55,0.3);
+        }
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .contact-form .btn {
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            background-color: var(--color-bg-medium);
+            padding: var(--spacing-unit) * 4 0;
+            text-align: center;
+            border-top: 1px solid var(--color-bg-dark);
+        }
+
+        .social-links {
+            margin-bottom: var(--spacing-unit) * 2;
+        }
+        .social-links a {
+            font-size: 1.8rem;
+            margin: 0 var(--spacing-unit);
+            color: var(--color-text-muted);
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .social-links a:hover {
+            color: var(--color-accent-gold);
+            transform: translateY(-3px);
+        }
         .footer p {
-            margin-top: 1.5rem;
             font-size: 0.9rem;
+            color: var(--color-text-muted);
+            margin-bottom: 0;
         }
-        
-        /* Responsive Design */
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 992px) {
+            h1 { font-size: 3.5rem; }
+            h2 { font-size: 2.5rem; }
+            .nav-links li { margin-left: var(--spacing-unit) * 2; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .contact-info { margin-bottom: var(--spacing-unit) * 3; text-align: center; }
+        }
+
         @media (max-width: 768px) {
             h1 { font-size: 2.8rem; }
             h2 { font-size: 2rem; }
-            
+            h3 { font-size: 1.5rem; }
+            p { font-size: 1rem; }
+
             .nav-links {
                 display: none;
                 flex-direction: column;
                 width: 100%;
-                background-color: var(--primary-color);
+                background-color: var(--color-bg-medium);
                 position: absolute;
-                top: 70px; /* Height of header */
+                top: 100%; /* Below the header */
                 left: 0;
                 text-align: center;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                border-radius: 0 0 8px 8px;
             }
-
             .nav-links.active {
                 display: flex;
             }
-
             .nav-links li {
-                margin: 1rem 0;
+                margin: var(--spacing-unit) 0;
+                padding: var(--spacing-unit) 0;
+                border-bottom: 1px solid var(--color-bg-dark);
             }
+            .nav-links li:last-child {
+                border-bottom: none;
+            }
+            .nav-links a {
+                color: var(--color-text-light);
+                font-size: 1.1rem;
+                display: block; /* Make links full width */
+                padding: var(--spacing-unit) 0;
+            }
+            .nav-links a::after { display: none; } /* Remove underline for mobile */
+            .nav-links a:hover { color: var(--color-accent-gold); }
 
             .hamburger {
                 display: flex;
             }
-
-            .hamburger.active .bar:nth-child(2) {
-                opacity: 0;
-            }
-            .hamburger.active .bar:nth-child(1) {
-                transform: translateY(8px) rotate(45deg);
-            }
-            .hamburger.active .bar:nth-child(3) {
-                transform: translateY(-8px) rotate(-45deg);
-            }
+            .hamburger.active .bar:nth-child(2) { opacity: 0; }
+            .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
             
-            .about-content {
+            section {
+                padding: var(--spacing-unit) * 6 0;
+            }
+            .section-title {
+                margin-bottom: var(--spacing-unit) * 4;
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 2rem; }
+            .hero-content p {
+                font-size: 1rem;
+            }
+            .btn {
+                padding: var(--spacing-unit) var(--spacing-unit) * 1.5;
+                font-size: 0.95rem;
+            }
+            .gallery-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .about-content img {
-                order: -1; /* Puts image on top on mobile */
-                margin-bottom: 2rem;
+            .item-info h4 {
+                font-size: 1.2rem;
             }
         }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
     <header class="header">
         <div class="container navbar">
-            <a href="#" class="logo">Quantum<span>Leap</span></a>
-            <ul class="nav-links">
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+            <a href="#" class="logo">Ethereal<span>Echoes</span></a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#vision">Our Vision</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
             <div class="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -330,59 +517,96 @@
     <main>
         <section id="hero">
             <div class="container hero-content">
-                <h1>Crafting the Future of Digital Experiences</h1>
-                <p>We are a forward-thinking studio that blends innovative design with cutting-edge technology to create solutions that resonate and inspire.</p>
-                <a href="#services" class="btn">Explore Our Work</a>
+                <h1>Where Art Transcends Reality</h1>
+                <p>Discover a curated collection of conceptual art and digital sculptures that challenge perception and evoke the sublime.</p>
+                <a href="#gallery" class="btn">View Collection</a>
             </div>
         </section>
 
-        <section id="services">
+        <section id="gallery">
             <div class="container">
                 <div class="section-title">
-                    <h2>What We Do</h2>
-                    <p>We turn complex problems into elegant, user-centric solutions.</p>
+                    <h2>Current Exhibition</h2>
                 </div>
-                <div class="services-grid">
-                    <div class="service-card">
-                        <div class="icon">🚀</div>
-                        <h3>Web Development</h3>
-                        <p>Building high-performance, responsive websites and web applications that drive growth and engagement for your business.</p>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1518018768696-fc8789cd4f0f?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600" alt="Abstract Art Piece 1">
+                        <div class="item-info">
+                            <h4>"Astral Bloom"</h4>
+                            <p>Acrylic on canvas, 2024</p>
+                            <p>Artist: Elara Vance</p>
+                        </div>
                     </div>
-                    <div class="service-card">
-                        <div class="icon">🎨</div>
-                        <h3>UI/UX Design</h3>
-                        <p>Creating intuitive and beautiful interfaces that provide a seamless user experience across all devices and platforms.</p>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1627885741630-f8426090e941?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600" alt="Abstract Art Piece 2">
+                        <div class="item-info">
+                            <h4>"Temporal Drift"</h4>
+                            <p>Digital sculpture, 2023</p>
+                            <p>Artist: Kaelen Frost</p>
+                        </div>
                     </div>
-                    <div class="service-card">
-                        <div class="icon">📈</div>
-                        <h3>Digital Strategy</h3>
-                        <p>Developing data-driven strategies to enhance your brand's digital presence, reach, and impact in a competitive market.</p>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1549749591-64547285a73e?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600" alt="Abstract Art Piece 3">
+                        <div class="item-info">
+                            <h4>"Resonance Cascade"</h4>
+                            <p>Mixed media, 2024</p>
+                            <p>Artist: Lyra Thorne</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1579783902672-4d2a138c353f?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600" alt="Abstract Art Piece 4">
+                        <div class="item-info">
+                            <h4>"Quantum Bloom"</h4>
+                            <p>Generative art print, 2023</p>
+                            <p>Artist: Cyrus Wren</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="about">
-            <div class="container">
+        <section id="vision">
+            <div class="container vision-content">
                 <div class="section-title">
-                    <h2>About Us</h2>
+                    <h2>Our Vision</h2>
                 </div>
-                <div class="about-content">
-                    <div class="about-text">
-                        <h3>Innovate. Create. Inspire.</h3>
-                        <p>Founded in 2024, QuantumLeap Studios was born from a passion for technology and a desire to make a tangible impact. We are a small, dedicated team of developers, designers, and strategists who believe in the power of collaboration.</p>
-                        <p>We're not just a service provider; we're your digital partner. We work closely with you to understand your vision and challenges, ensuring that what we build is not just beautiful, but also perfectly aligned with your goals.</p>
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200" alt="Our Team Collaborating">
-                </div>
+                <h3>Curating the Edge of Perception</h3>
+                <p>Ethereal Echoes Gallery is more than just a space; it's a journey into the uncharted territories of artistic expression. We believe art should not merely reflect reality but redefine it, offering new perspectives and profound emotional resonance.</p>
+                <p>Our commitment is to showcase artists who push boundaries, exploring themes of existence, consciousness, and the digital sublime through innovative mediums. Each piece is selected for its ability to provoke thought, inspire wonder, and leave an indelible mark on the viewer's imagination.</p>
             </div>
         </section>
 
         <section id="contact">
-            <div class="container contact-content">
-                <h2>Let's Build Something Amazing</h2>
-                <p>Have an idea or a project in mind? We'd love to hear from you. Reach out and let's start the conversation about how we can help you achieve your digital ambitions.</p>
-                <a href="mailto:hello@quantumleap.studio" class="btn">Get In Touch</a>
+            <div class="container">
+                <div class="section-title">
+                    <h2>Connect With Us</h2>
+                </div>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3>Inquiries & Visits</h3>
+                        <p>We welcome private viewings and press inquiries. Please reach out to schedule an appointment or for more information on our artists and upcoming exhibitions.</p>
+                        <p><strong>Email:</strong> <a href="mailto:info@etherealechoes.art">info@etherealechoes.art</a></p>
+                        <p><strong>Phone:</strong> +1 (555) ART-GALLERY</p>
+                        <p><strong>Address:</strong> 17 Nebula Lane, Art District, Metropia, XY 90210</p>
+                    </div>
+                    <div class="contact-form">
+                        <form>
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject">
+
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+
+                            <button type="submit" class="btn">Send Message</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -390,24 +614,43 @@
     <footer class="footer">
         <div class="container">
             <div class="social-links">
-                <a href="#" aria-label="LinkedIn">LI</a>
-                <a href="#" aria-label="GitHub">GH</a>
+                <a href="#" aria-label="Instagram">IG</a>
                 <a href="#" aria-label="Twitter">TW</a>
+                <a href="#" aria-label="ArtStation">AS</a>
             </div>
-            <p>&copy; 2025 QuantumLeap Studios. All Rights Reserved.</p>
+            <p>&copy; 2025 Ethereal Echoes Gallery. All Rights Reserved.</p>
         </div>
     </footer>
 
     <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Header scroll effect
+        const header = document.querySelector('.header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) { // Adjust threshold as needed
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Hamburger menu toggle
         const hamburger = document.querySelector('.hamburger');
         const navLinks = document.querySelector('.nav-links');
 
         hamburger.addEventListener('click', () => {
-            // Toggle Nav
             navLinks.classList.toggle('active');
-
-            // Hamburger Animation
             hamburger.classList.toggle('active');
+            document.body.classList.toggle('no-scroll'); // Optional: prevent body scroll when menu is open
         });
 
         // Close mobile menu when a link is clicked
@@ -415,6 +658,7 @@
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
                 hamburger.classList.remove('active');
+                document.body.classList.remove('no-scroll');
             });
         });
     </script>
