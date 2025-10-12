@@ -3,691 +3,526 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Batumi Grand Towers - Premier Apartment Rentals</title>
-    
+    <title>Elysian Towers | Batumi Premier Stays</title>
+
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --primary-color: #0077b6;
-            --secondary-color: #023e8a;
-            --accent-color: #ffb703;
-            --text-dark: #0d1b2a;
-            --text-light: #6c757d;
-            --background-light: #f8f9fa;
-            --white: #ffffff;
-            --border-color: #dee2e6;
-            --shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.07);
+            --color-primary: #c09f80; /* A sophisticated gold/bronze */
+            --color-secondary: #0d1b2a; /* Deep navy blue */
+            --color-background: #fdfdfd;
+            --color-surface: #ffffff;
+            --color-text: #1b263b;
+            --color-text-muted: #778da9;
+            --font-primary: 'DM Sans', sans-serif;
+            --font-display: 'Playfair Display', serif;
+            --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        * {
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--background-light);
-            color: var(--text-dark);
-            line-height: 1.7;
+            font-family: var(--font-primary);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Vue Transition Effects */
-        .fade-enter-active, .fade-leave-active {
-            transition: opacity 0.5s ease;
+        /* Vue Transitions for Smoothness */
+        .fade-enter-active, .fade-leave-active,
+        .modal-fade-enter-active, .modal-fade-leave-active {
+            transition: opacity 0.4s ease;
         }
-        .fade-enter-from, .fade-leave-to {
+        .fade-enter-from, .fade-leave-to,
+        .modal-fade-enter-from, .modal-fade-leave-to {
             opacity: 0;
         }
-        .slide-fade-enter-active {
-            transition: all 0.3s ease-out;
+        .modal-content-enter-active {
+            transition: all 0.4s ease;
         }
-        .slide-fade-leave-active {
-            transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
-        }
-        .slide-fade-enter-from,
-        .slide-fade-leave-to {
-            transform: translateY(-20px);
+        .modal-content-enter-from, .modal-content-leave-to {
             opacity: 0;
+            transform: translateY(-30px);
+        }
+
+        /* Scroll Animation Setup */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Main App Container */
-        #app {
-            transition: filter 0.3s ease;
+        #app.modal-open { filter: blur(8px); }
+        #app { transition: filter 0.3s ease; }
+
+        /* General UI Elements */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
         }
-        #app.modal-open {
-            filter: blur(5px);
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-header .subtitle {
+            color: var(--color-primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        .section-header .title {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 5vw, 3rem);
+            margin-bottom: 1rem;
+        }
+        .section-header .description {
+            font-size: 1.1rem;
+            color: var(--color-text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: var(--color-surface);
+        }
+        .btn-primary:hover {
+            background-color: #a8876c;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+        }
+        .btn-secondary:hover {
+            background-color: var(--color-primary);
+            color: var(--color-surface);
         }
 
         /* Header */
         .header {
-            background: var(--white);
-            padding: 1rem 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 0;
             position: sticky;
             top: 0;
-            z-index: 1000;
-            box-shadow: var(--shadow-light);
-            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
+            border-bottom: 1px solid #eee;
         }
         .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            max-width: 1400px; margin: 0 auto; padding: 0 2rem;
+            display: flex; justify-content: space-between; align-items: center;
         }
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--secondary-color);
-        }
-        .nav-links, .lang-selector {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 500;
-            position: relative;
-            padding: 0.5rem 0;
-        }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary-color);
-            transition: width 0.3s ease;
-        }
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        .lang-btn {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-light);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        .lang-btn.active, .lang-btn:hover {
-            background: var(--primary-color);
-            color: var(--white);
-            border-color: var(--primary-color);
-        }
-        
+        .logo { font-family: var(--font-display); font-size: 1.8rem; color: var(--color-secondary); }
+
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(13, 27, 42, 0.6), rgba(13, 27, 42, 0.6)), url('https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
-            height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: var(--white);
-            padding: 0 2rem;
+            background: linear-gradient(rgba(13, 27, 42, 0.6), rgba(13, 27, 42, 0.6)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop') center/cover;
+            height: 95vh;
+            display: flex; align-items: center; text-align: center;
+            color: var(--color-surface);
         }
-        .hero-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            margin-bottom: 1rem;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-        .hero-content p {
-            font-size: clamp(1rem, 2.5vw, 1.5rem);
+        .hero-content {
             max-width: 800px;
             margin: 0 auto;
-            opacity: 0.9;
+            padding: 0 2rem;
         }
+        .hero-content h1 { font-family: var(--font-display); font-size: clamp(3rem, 7vw, 5rem); }
+        .hero-content p { font-size: 1.25rem; margin: 1rem 0 2rem; opacity: 0.9; }
 
         /* Booking Form */
-        .booking-form-wrapper {
-            background-color: var(--background-light);
-            padding: 4rem 0;
-        }
         .booking-form {
-            max-width: 1200px;
-            margin: -150px auto 0;
-            position: relative;
-            z-index: 10;
-            background: var(--white);
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            align-items: end;
+            max-width: 1100px; margin: -80px auto 0; position: relative; z-index: 10;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(15px);
+            padding: 2rem; border-radius: var(--border-radius); box-shadow: var(--shadow-md);
+            border: 1px solid rgba(255,255,255,0.2);
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem; align-items: flex-end;
         }
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-        .form-group label {
-            margin-bottom: 0.75rem;
-            font-weight: 500;
-            color: var(--text-dark);
-        }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group label { margin-bottom: 0.5rem; font-weight: 500; }
         .form-group input, .form-group select {
-            padding: 1rem;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: 'Inter', sans-serif;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            padding: 0.9rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem;
+            background: rgba(255,255,255,0.7);
         }
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.1);
-        }
-        .search-btn {
-            background: var(--accent-color);
-            color: var(--text-dark);
-            border: none;
-            padding: 1rem;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s;
-            height: calc(3.25rem); /* Align height with inputs */
-        }
-        .search-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 183, 3, 0.4);
-            background-color: #ffc107;
-        }
+        .form-group input:focus { outline: 2px solid var(--color-primary); }
+        .form-error { color: #d90429; font-size: 0.85rem; margin-top: 0.25rem; }
 
-        /* General Container */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 6rem 2rem;
-        }
-        .section-title {
-            text-align: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            margin-bottom: 1rem;
-        }
-        .section-subtitle {
-            text-align: center;
-            font-size: 1.1rem;
-            color: var(--text-light);
-            max-width: 600px;
-            margin: 0 auto 4rem auto;
-        }
-
-        /* Rooms Grid */
+        /* Rooms Section */
         .rooms-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2.5rem;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2.5rem;
         }
         .room-card {
-            background: var(--white);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: var(--shadow-light);
-            display: flex;
-            flex-direction: column;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: var(--color-surface); border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm); overflow: hidden;
+            display: flex; flex-direction: column;
+            transition: var(--transition-smooth);
         }
-        .room-card:hover {
-            transform: translateY(-15px);
-            box-shadow: var(--shadow);
+        .room-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-md); }
+        .room-image { width: 100%; height: 240px; object-fit: cover; }
+        .room-content { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .room-title { font-family: var(--font-display); font-size: 1.5rem; }
+        .room-excerpt { color: var(--color-text-muted); margin: 0.5rem 0 1rem; }
+        .room-meta {
+            margin-top: auto; display: flex; justify-content: space-between; align-items: center;
         }
-        .room-image-wrapper {
-            position: relative;
-        }
-        .room-image {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
-        .room-price {
-            position: absolute;
-            bottom: 1rem;
-            right: 1rem;
-            background: rgba(13, 27, 42, 0.8);
-            color: var(--white);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.2rem;
-            backdrop-filter: blur(5px);
-        }
-        .room-content {
-            padding: 1.5rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .room-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            margin-bottom: 0.5rem;
-        }
-        .room-description {
-            color: var(--text-light);
-            margin-bottom: 1rem;
-            flex-grow: 1;
-        }
-        .amenities {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-            color: var(--text-light);
-        }
-        .book-btn {
-            width: 100%;
-            padding: 1rem;
-            border: none;
-            background: var(--primary-color);
-            color: var(--white);
-            font-size: 1rem;
-            font-weight: 700;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-        }
-        .book-btn:hover {
-            background: var(--secondary-color);
-            transform: scale(1.02);
-        }
-        
-        /* Modal Styles */
+        .room-price { color: var(--color-primary); font-size: 1.5rem; font-weight: 700; }
+
+        /* Modal */
         .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(13, 27, 42, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            backdrop-filter: blur(5px);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(13, 27, 42, 0.8); backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center; z-index: 1000;
         }
         .modal-content {
-            background: var(--white);
-            padding: 2.5rem;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: var(--shadow);
-            position: relative;
+            background: var(--color-surface); border-radius: var(--border-radius);
+            width: 90%; max-width: 800px; box-shadow: var(--shadow-md);
+            position: relative; max-height: 90vh; overflow-y: auto;
+        }
+        .modal-header img { width: 100%; height: 300px; object-fit: cover; border-radius: var(--border-radius) var(--border-radius) 0 0; }
+        .modal-body { padding: 2.5rem; }
+        .modal-title { font-family: var(--font-display); font-size: 2.2rem; margin-bottom: 1rem; }
+        .modal-amenities { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1.5rem 0; color: var(--color-text-muted); }
+        .amenity { display: flex; align-items: center; gap: 0.5rem; }
+        .amenity svg { width: 24px; height: 24px; stroke: var(--color-primary); }
+        .modal-footer {
+            padding: 2rem; background: var(--color-background); border-top: 1px solid #eee;
+            display: flex; justify-content: space-between; align-items: center;
         }
         .modal-close-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: transparent;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-light);
+            position: absolute; top: 1rem; right: 1rem; background: rgba(0,0,0,0.3); color: white;
+            border: none; border-radius: 50%; width: 32px; height: 32px;
+            font-size: 1.5rem; line-height: 1; cursor: pointer;
         }
-        .modal-title {
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        .modal-summary p {
-            margin-bottom: 0.5rem;
-        }
-        .modal-form {
-            margin-top: 1.5rem;
-        }
+        .booking-success { text-align: center; padding: 4rem 2rem; }
+        .booking-success svg { width: 80px; height: 80px; color: #2a9d8f; margin-bottom: 1rem; }
+
     </style>
 </head>
 <body>
 
 <div id="app" :class="{ 'modal-open': isModalVisible }">
-    
     <header class="header">
         <div class="nav-container">
-            <div class="logo">Batumi Grand</div>
-            <nav class="nav-links">
-                <a href="#rooms" v-text="t('ourRooms')"></a>
-                <a href="#footer" v-text="t('contactUs')"></a>
-            </nav>
-            <div class="lang-selector">
-                <button v-for="lang in availableLangs" :key="lang.code" 
-                        @click="changeLanguage(lang.code)"
-                        :class="{ active: currentLang === lang.code }"
-                        class="lang-btn">
-                    {{ lang.name }}
-                </button>
-            </div>
+            <div class="logo">Elysian Towers</div>
+            <a href="#booking-form" class="btn btn-primary">{{ t('bookNow') }}</a>
         </div>
     </header>
 
     <main>
         <section class="hero">
-            <div class="hero-content">
-                <h1 v-text="t('heroTitle')"></h1>
-                <p v-text="t('heroSubtitle')"></p>
+            <div class="hero-content animate-on-scroll">
+                <h1>{{ t('heroTitle') }}</h1>
+                <p>{{ t('heroSubtitle') }}</p>
             </div>
         </section>
 
-        <div id="booking-form" class="booking-form-wrapper">
-             <form @submit.prevent="searchAvailability" class="booking-form">
+        <section id="booking-form" class="booking-form-wrapper">
+            <form @submit.prevent="handleSearch" class="booking-form animate-on-scroll">
                 <div class="form-group">
-                    <label v-text="t('checkIn')"></label>
-                    <input type="date" v-model="search.checkIn" :min="today" required>
+                    <label>{{ t('checkIn') }}</label>
+                    <input type="date" v-model="search.checkIn" :min="today" @change="validateDates">
+                    <span v-if="errors.checkIn" class="form-error">{{ errors.checkIn }}</span>
                 </div>
                 <div class="form-group">
-                    <label v-text="t('checkOut')"></label>
-                    <input type="date" v-model="search.checkOut" :min="search.checkIn || today" required>
+                    <label>{{ t('checkOut') }}</label>
+                    <input type="date" v-model="search.checkOut" :min="search.checkIn || today" @change="validateDates">
+                    <span v-if="errors.checkOut" class="form-error">{{ errors.checkOut }}</span>
                 </div>
                 <div class="form-group">
-                    <label v-text="t('guests')"></label>
+                    <label>{{ t('guests') }}</label>
                     <select v-model.number="search.guests">
-                        <option v-for="n in 5" :value="n">{{ n }}</option>
+                        <option v-for="n in 5" :value="n">{{ n }} {{ n > 1 ? t('guests') : t('guest') }}</option>
                     </select>
                 </div>
-                <button type="submit" class="search-btn" v-text="t('searchBtn')"></button>
+                <button type="submit" class="btn btn-primary" style="align-self: flex-end; width: 100%;">{{ t('searchBtn') }}</button>
             </form>
-        </div>
+        </section>
 
-        <div id="rooms" class="container">
-            <h2 class="section-title" v-text="t('ourRooms')"></h2>
-            <p class="section-subtitle" v-text="t('roomsSubtitle')"></p>
-            
-            <transition name="slide-fade" mode="out-in">
-                <div v-if="filteredRooms.length > 0" class="rooms-grid">
-                    <div v-for="room in filteredRooms" :key="room.id" class="room-card">
-                        <div class="room-image-wrapper">
-                            <img :src="room.imageUrl" :alt="room.title[currentLang]" class="room-image">
-                            <div class="room-price">${{ room.price }} <span style="font-size: 0.9rem;">/{{ t('night') }}</span></div>
-                        </div>
-                        <div class="room-content">
-                            <h3 class="room-title">{{ room.title[currentLang] }}</h3>
-                            <p class="room-description">{{ room.description[currentLang] }}</p>
-                            <div class="amenities">
-                                <span>🛏️ {{ room.amenities.beds }} {{ t('beds') }}</span>
-                                <span v-if="room.amenities.wifi">📶 WiFi</span>
-                                <span v-if="room.amenities.kitchen">🍳 {{ t('kitchen') }}</span>
-                                <span v-if="room.amenities.seaview">🌊 {{ t('seaview') }}</span>
+        <section id="rooms" class="container">
+            <header class="section-header animate-on-scroll">
+                <p class="subtitle">{{ t('roomsSubtitle') }}</p>
+                <h2 class="title">{{ t('ourRooms') }}</h2>
+                <p class="description">{{ t('roomsDescription') }}</p>
+            </header>
+            <div class="rooms-grid">
+                <div v-for="(room, index) in filteredRooms" :key="room.id" class="room-card animate-on-scroll" :style="{ 'transition-delay': (index * 100) + 'ms' }">
+                    <img :src="room.imageUrl" :alt="room.title.en" class="room-image">
+                    <div class="room-content">
+                        <h3 class="room-title">{{ room.title[lang] }}</h3>
+                        <p class="room-excerpt">{{ room.excerpt[lang] }}</p>
+                        <div class="room-meta">
+                            <div>
+                                <span class="room-price">${{ room.price }}</span> / {{ t('night') }}
                             </div>
-                            <button @click="openBookingModal(room)" class="book-btn" v-text="t('bookNow')"></button>
+                            <button @click="openDetailsModal(room)" class="btn btn-secondary">{{ t('viewDetails') }}</button>
                         </div>
                     </div>
                 </div>
-                <div v-else>
-                    <p class="section-subtitle">{{ t('noRooms') }}</p>
-                </div>
-            </transition>
-        </div>
+            </div>
+        </section>
     </main>
 
-    <footer id="footer" class="footer" style="background-color: var(--text-dark); color: var(--white); padding: 4rem 2rem; text-align: center;">
-         <div class="logo" style="color: var(--white); margin-bottom: 2rem;">Batumi Grand</div>
-         <p>+995 123 456 789  •  bookings@batumigrand.com</p>
-         <p style="margin-top: 2rem; opacity: 0.7;">&copy; {{ new Date().getFullYear() }} Batumi Grand. {{ t('rights') }}</p>
-    </footer>
-
-    <transition name="fade">
-        <div v-if="isModalVisible" class="modal-overlay" @click.self="closeBookingModal">
-            <div class="modal-content">
-                <button @click="closeBookingModal" class="modal-close-btn">&times;</button>
-                
-                <transition name="slide-fade" mode="out-in">
-                    <div v-if="!bookingSuccess" key="form">
-                        <h2 class="modal-title">{{ t('confirmBooking') }}</h2>
-                        <div class="modal-summary">
-                            <p><strong>{{ t('room') }}:</strong> {{ selectedRoom.title[currentLang] }}</p>
-                            <p><strong>{{ t('checkIn') }}:</strong> {{ new Date(search.checkIn).toLocaleDateString() }}</p>
-                            <p><strong>{{ t('checkOut') }}:</strong> {{ new Date(search.checkOut).toLocaleDateString() }}</p>
-                            <p><strong>{{ t('guests') }}:</strong> {{ search.guests }}</p>
-                            <p><strong>{{ t('totalPrice') }}:</strong> ${{ calculateTotalPrice() }}</p>
+    <transition name="modal-fade">
+        <div v-if="isModalVisible" class="modal-overlay" @click.self="closeModal">
+            <transition name="modal-content" appear>
+                <div class="modal-content">
+                    <button @click="closeModal" class="modal-close-btn">&times;</button>
+                    
+                    <div v-if="!booking.success">
+                        <header class="modal-header">
+                            <img :src="selectedRoom.imageUrl" :alt="selectedRoom.title[lang]">
+                        </header>
+                        <div class="modal-body">
+                            <h2 class="modal-title">{{ selectedRoom.title[lang] }}</h2>
+                            <p>{{ selectedRoom.description[lang] }}</p>
+                            <div class="modal-amenities">
+                                <div class="amenity">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/></svg>
+                                    {{ selectedRoom.amenities.capacity }} {{ t('guests') }}
+                                </div>
+                                <div class="amenity">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                                    {{ selectedRoom.amenities.size }} m²
+                                </div>
+                                <div class="amenity">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><path d="M10.6 13.4c-.9-.9-.9-2.3 0-3.2"/><path d="M13.4 10.6c.9.9.9 2.3 0 3.2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.2 19.1 19.1"/><line x1="12" y1="22" x2="12" y2="2"/></svg>
+                                    WiFi
+                                </div>
+                            </div>
+                            <form @submit.prevent="handleBooking">
+                                <div class="form-group">
+                                    <label>{{ t('fullName') }}</label>
+                                    <input type="text" v-model="booking.name" required>
+                                </div>
+                                <div class="form-group" style="margin-top: 1rem;">
+                                    <label>Email</label>
+                                    <input type="email" v-model="booking.email" required>
+                                </div>
+                            </form>
                         </div>
-                        <form @submit.prevent="finalizeBooking" class="modal-form">
-                            <div class="form-group">
-                                <label>{{ t('fullName') }}</label>
-                                <input type="text" v-model="bookingDetails.name" required>
+                        <footer class="modal-footer">
+                            <div>
+                                <span style="font-size: 1.5rem; font-weight: 700;">${{ calculateTotalPrice() }}</span>
+                                <span v-if="totalNights > 0"> ({{ totalNights }} {{ totalNights > 1 ? t('nights') : t('night') }})</span>
                             </div>
-                            <div class="form-group" style="margin-top: 1rem;">
-                                <label>Email</label>
-                                <input type="email" v-model="bookingDetails.email" required>
-                            </div>
-                            <button type="submit" class="book-btn" style="width: 100%; margin-top: 2rem;">{{ t('completeBooking') }}</button>
-                        </form>
+                            <button @click="handleBooking" class="btn btn-primary">{{ t('reserveNow') }}</button>
+                        </footer>
                     </div>
-                    <div v-else key="success">
-                        <h2 class="modal-title">✅ {{ t('bookingConfirmed') }}</h2>
-                        <p style="text-align: center;">{{ t('bookingSuccessMsg') }}</p>
-                        <button @click="closeBookingModal" class="book-btn" style="width: 100%; margin-top: 2rem;">{{ t('close') }}</button>
+                    <div v-else class="booking-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <h2 class="title">{{ t('bookingConfirmed') }}</h2>
+                        <p>{{ t('bookingSuccessMsg') }}</p>
                     </div>
-                </transition>
-            </div>
+
+                </div>
+            </transition>
         </div>
     </transition>
 
 </div>
 
 <script>
-    // Translations Object
-    const translations = {
-        en: {
-            ourRooms: "Our Apartments",
-            contactUs: "Contact Us",
-            heroTitle: "Experience Batumi From The Top",
-            heroSubtitle: "Luxury rentals with unparalleled sea views and five-star amenities.",
-            checkIn: "Check-in Date",
-            checkOut: "Check-out Date",
-            guests: "Guests",
-            searchBtn: "Check Availability",
-            roomsSubtitle: "Select your dates to find the perfect available apartment for your stay.",
-            night: "night",
-            beds: "Beds",
-            kitchen: "Kitchen",
-            seaview: "Sea View",
-            bookNow: "Reserve Now",
-            noRooms: "No apartments available for the selected dates. Please try different dates.",
-            rights: "All Rights Reserved.",
-            confirmBooking: "Confirm Your Reservation",
-            room: "Room",
-            totalPrice: "Total Price",
-            fullName: "Full Name",
-            completeBooking: "Complete Booking",
-            bookingConfirmed: "Booking Confirmed!",
-            bookingSuccessMsg: "Thank you! A confirmation email has been sent to your address.",
-            close: "Close"
-        },
-        ka: {
-            ourRooms: "ჩვენი აპარტამენტები",
-            contactUs: "კონტაქტი",
-            heroTitle: "განიცადე ბათუმი სიმაღლიდან",
-            heroSubtitle: "ლუქს კლასის აპარტამენტები ზღვის ხედით და ხუთვარსკვლავიანი სერვისით.",
-            checkIn: "შესვლის თარიღი",
-            checkOut: "გასვლის თარიღი",
-            guests: "სტუმრები",
-            searchBtn: "შეამოწმე ხელმისაწვდომობა",
-            roomsSubtitle: "აირჩიეთ თარიღები თქვენი დასვენებისთვის იდეალური ბინის მოსაძებნად.",
-            night: "ღამე",
-            beds: "საწოლი",
-            kitchen: "სამზარეულო",
-            seaview: "ზღვის ხედი",
-            bookNow: "დაჯავშნე",
-            noRooms: "მითითებულ თარიღებზე თავისუფალი ბინები არ არის. გთხოვთ, სცადოთ სხვა თარიღები.",
-            rights: "ყველა უფლება დაცულია.",
-            confirmBooking: "დაადასტურეთ ჯავშანი",
-            room: "აპარტამენტი",
-            totalPrice: "სრული ფასი",
-            fullName: "სრული სახელი",
-            completeBooking: "ჯავშნის დასრულება",
-            bookingConfirmed: "ჯავშანი დადასტურებულია!",
-            bookingSuccessMsg: "გმადლობთ! დამადასტურებელი წერილი გამოგზავნილია თქვენს მეილზე.",
-            close: "დახურვა"
+    // --- APP CONFIGURATION & TRANSLATIONS ---
+    const CONFIG = {
+        lang: 'en',
+        translations: {
+            en: {
+                bookNow: "Book Your Stay",
+                heroTitle: "Your Exclusive Escape in Batumi",
+                heroSubtitle: "Discover unparalleled luxury and breathtaking views from our premier residences at the heart of the city.",
+                checkIn: "Check-in",
+                checkOut: "Check-out",
+                guests: "Guests",
+                guest: "Guest",
+                searchBtn: "Find My Suite",
+                ourRooms: "Our Premier Suites",
+                roomsSubtitle: "Curated for Comfort",
+                roomsDescription: "Each of our suites is thoughtfully designed to provide an unforgettable experience of comfort, elegance, and serenity.",
+                night: "night",
+                nights: "nights",
+                viewDetails: "View Details",
+                reserveNow: "Reserve Now",
+                fullName: "Full Name",
+                bookingConfirmed: "Reservation Confirmed!",
+                bookingSuccessMsg: "Thank you for choosing Elysian Towers. A confirmation has been sent to your email address.",
+                validation: {
+                    datesRequired: "Please select both dates.",
+                    checkoutAfterIn: "Check-out must be after check-in.",
+                },
+            },
         }
     };
 
-    // --- BROWSER DATABASE SIMULATION using localStorage ---
+    // --- BROWSER DATABASE SIMULATION ---
     const Database = {
         getRooms() {
-            let rooms = JSON.parse(localStorage.getItem('rooms'));
-            if (!rooms) {
-                rooms = this.seedRooms();
+            if (!localStorage.getItem('elysian_rooms')) {
+                this.seedRooms();
             }
-            return rooms;
+            return JSON.parse(localStorage.getItem('elysian_rooms'));
         },
         getBookings() {
-            return JSON.parse(localStorage.getItem('bookings')) || [];
+            return JSON.parse(localStorage.getItem('elysian_bookings')) || [];
         },
         saveBooking(booking) {
             const bookings = this.getBookings();
             bookings.push(booking);
-            localStorage.setItem('bookings', JSON.stringify(bookings));
+            localStorage.setItem('elysian_bookings', JSON.stringify(bookings));
         },
         seedRooms() {
             const initialRooms = [
-                { id: 1, title: {en: "Azure Horizon Suite", ka: "ლურჯი ჰორიზონტის ლუქსი"}, description: {en: "A stunning suite offering breathtaking panoramic views of the Black Sea.", ka: "განსაცვიფრებელი ლუქსი შავი ზღვის პანორამული ხედებით."}, price: 150, imageUrl: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=2070&auto=format&fit=crop", amenities: {beds: 2, wifi: true, kitchen: true, seaview: true} },
-                { id: 2, title: {en: "City Lights Loft", ka: "ქალაქის შუქების ლოფტი"}, description: {en: "Modern and stylish loft perfect for urban explorers, with a dazzling city view.", ka: "თანამედროვე ლოფტი ქალაქის მკვლევრებისთვის, ბრწყინვალე ხედით."}, price: 120, imageUrl: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=2070&auto=format&fit=crop", amenities: {beds: 1, wifi: true, kitchen: true, seaview: false} },
-                { id: 3, title: {en: "Grand Family Residence", ka: "დიდი საოჯახო რეზიდენცია"}, description: {en: "Spacious two-bedroom residence for families seeking comfort and luxury.", ka: "ფართო ოროთახიანი რეზიდენცია ოჯახებისთვის."}, price: 220, imageUrl: "https://images.unsplash.com/photo-1560185893-a55de8537e4f?q=80&w=1974&auto=format&fit=crop", amenities: {beds: 3, wifi: true, kitchen: true, seaview: true} }
+                { id: 1, title: {en: "Azure Horizon Suite"}, excerpt: {en: "A stunning suite offering breathtaking panoramic views of the Black Sea."}, description: {en: "Awake to the endless azure expanse of the Black Sea in this premium suite. Featuring a king-sized bed, a modern kitchenette, and a private balcony, it's the perfect romantic getaway."}, price: 175, imageUrl: "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=1974&auto=format&fit=crop", amenities: { capacity: 2, size: 65 } },
+                { id: 2, title: {en: "City Lights Loft"}, excerpt: {en: "Modern and stylish loft perfect for urban explorers, with a dazzling city view."}, description: {en: "Immerse yourself in the vibrant energy of Batumi. This chic loft offers floor-to-ceiling windows, contemporary design, and all the amenities needed for a stylish city break."}, price: 140, imageUrl: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop", amenities: { capacity: 2, size: 55 } },
+                { id: 3, title: {en: "Grand Family Residence"}, excerpt: {en: "Spacious two-bedroom residence for families seeking comfort and luxury."}, description: {en: "Create lasting memories in our expansive Family Residence. With two separate bedrooms, a full living area, and a gourmet kitchen, it provides the ultimate in comfort and convenience for the whole family."}, price: 250, imageUrl: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=2070&auto=format&fit=crop", amenities: { capacity: 4, size: 110 } }
             ];
-            localStorage.setItem('rooms', JSON.stringify(initialRooms));
-            return initialRooms;
+            localStorage.setItem('elysian_rooms', JSON.stringify(initialRooms));
         }
     };
 
     // --- VUE.JS APPLICATION ---
-    const app = Vue.createApp({
-        data() {
-            return {
-                currentLang: 'en',
-                availableLangs: [{code: 'en', name: 'EN'}, {code: 'ka', name: 'GE'}],
-                allRooms: [],
-                filteredRooms: [],
-                bookings: [],
-                search: {
-                    checkIn: '',
-                    checkOut: '',
-                    guests: 1
-                },
-                isModalVisible: false,
-                selectedRoom: null,
-                bookingDetails: {
-                    name: '',
-                    email: ''
-                },
-                bookingSuccess: false
-            }
-        },
-        computed: {
-            today() {
-                // Returns today's date in YYYY-MM-DD format
-                return new Date().toISOString().split('T')[0];
-            }
-        },
-        methods: {
-            t(key) {
-                return translations[this.currentLang][key] || key;
-            },
-            changeLanguage(lang) {
-                this.currentLang = lang;
-            },
-            searchAvailability() {
-                if (!this.search.checkIn || !this.search.checkOut) {
-                    alert('Please select both check-in and check-out dates.');
+    const { createApp, ref, reactive, computed, onMounted } = Vue;
+    
+    createApp({
+        setup() {
+            // State
+            const lang = ref(CONFIG.lang);
+            const allRooms = ref([]);
+            const filteredRooms = ref([]);
+            const bookings = ref([]);
+            const search = reactive({ checkIn: '', checkOut: '', guests: 1 });
+            const errors = reactive({ checkIn: null, checkOut: null });
+            const isModalVisible = ref(false);
+            const selectedRoom = ref(null);
+            const booking = reactive({ name: '', email: '', success: false });
+
+            // Computed Properties
+            const today = computed(() => new Date().toISOString().split('T')[0]);
+            const totalNights = computed(() => {
+                if (!search.checkIn || !search.checkOut) return 0;
+                const start = new Date(search.checkIn);
+                const end = new Date(search.checkOut);
+                return Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+            });
+
+            // Methods
+            const t = (key) => CONFIG.translations[lang.value][key] || key;
+            const validateDates = () => {
+                errors.checkIn = null; errors.checkOut = null;
+                if (search.checkIn && search.checkOut) {
+                    if (new Date(search.checkIn) >= new Date(search.checkOut)) {
+                        errors.checkOut = t('validation.checkoutAfterIn');
+                        return false;
+                    }
+                }
+                return true;
+            };
+            const handleSearch = () => {
+                if (!validateDates()) return;
+                if (!search.checkIn || !search.checkOut) {
+                    errors.checkIn = t('validation.datesRequired');
                     return;
                 }
-
-                const searchStart = new Date(this.search.checkIn);
-                const searchEnd = new Date(this.search.checkOut);
-
-                if (searchStart >= searchEnd) {
-                    alert('Check-out date must be after the check-in date.');
-                    return;
-                }
-
-                const available = this.allRooms.filter(room => {
-                    const conflictingBooking = this.bookings.find(booking => {
-                        if (booking.roomId !== room.id) return false;
-                        const bookingStart = new Date(booking.checkIn);
-                        const bookingEnd = new Date(booking.checkOut);
-                        // Check for overlap
-                        return (searchStart < bookingEnd && searchEnd > bookingStart);
-                    });
-                    return !conflictingBooking;
-                });
-
-                this.filteredRooms = available;
-            },
-            openBookingModal(room) {
-                 if (!this.search.checkIn || !this.search.checkOut) {
-                    alert('Please select your dates in the form above before booking.');
-                    // Scroll to form
-                    document.getElementById('booking-form').scrollIntoView({ behavior: 'smooth' });
-                    return;
-                }
-                this.selectedRoom = room;
-                this.isModalVisible = true;
-            },
-            closeBookingModal() {
-                this.isModalVisible = false;
-                this.selectedRoom = null;
-                this.bookingDetails = { name: '', email: '' };
-                this.bookingSuccess = false; // Reset success state
-            },
-            calculateTotalPrice() {
-                if (!this.search.checkIn || !this.search.checkOut || !this.selectedRoom) return 0;
-                const start = new Date(this.search.checkIn);
-                const end = new Date(this.search.checkOut);
-                const nights = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-                return nights * this.selectedRoom.price;
-            },
-            finalizeBooking() {
-                const newBooking = {
-                    bookingId: Date.now(),
-                    roomId: this.selectedRoom.id,
-                    checkIn: this.search.checkIn,
-                    checkOut: this.search.checkOut,
-                    guests: this.search.guests,
-                    customerName: this.bookingDetails.name,
-                    customerEmail: this.bookingDetails.email
-                };
-
-                Database.saveBooking(newBooking);
-                this.bookings.push(newBooking); // Update local state
-                this.bookingSuccess = true;
+                const searchStart = new Date(search.checkIn);
+                const searchEnd = new Date(search.checkOut);
                 
-                // Refresh the room list to reflect new availability
-                this.searchAvailability();
-            }
-        },
-        created() {
-            // Load all data from our simulated database on app start
-            this.allRooms = Database.getRooms();
-            this.bookings = Database.getBookings();
-            this.filteredRooms = [...this.allRooms]; // Initially show all rooms
-        }
-    });
+                filteredRooms.value = allRooms.value.filter(room => {
+                    const hasCapacity = room.amenities.capacity >= search.guests;
+                    const isAvailable = !bookings.value.some(b => 
+                        b.roomId === room.id && 
+                        (new Date(b.checkIn) < searchEnd && new Date(b.checkOut) > searchStart)
+                    );
+                    return hasCapacity && isAvailable;
+                });
+            };
+            const openDetailsModal = (room) => {
+                selectedRoom.value = room;
+                isModalVisible.value = true;
+            };
+            const closeModal = () => {
+                isModalVisible.value = false;
+                booking.success = false;
+                booking.name = '';
+                booking.email = '';
+            };
+            const calculateTotalPrice = () => totalNights.value * (selectedRoom.value?.price || 0);
+            const handleBooking = () => {
+                if (!booking.name || !booking.email) {
+                    alert('Please fill in your name and email.');
+                    return;
+                }
+                const newBooking = {
+                    bookingId: Date.now(), roomId: selectedRoom.value.id,
+                    checkIn: search.checkIn, checkOut: search.checkOut,
+                    guests: search.guests, customerName: booking.name, customerEmail: booking.email
+                };
+                Database.saveBooking(newBooking);
+                bookings.value.push(newBooking);
+                booking.success = true;
+                handleSearch(); // Refresh search results
+            };
+            const setupScrollAnimations = () => {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
 
-    app.mount('#app');
+                document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+            };
+
+            // Lifecycle Hook
+            onMounted(() => {
+                allRooms.value = Database.getRooms();
+                bookings.value = Database.getBookings();
+                filteredRooms.value = [...allRooms.value];
+                setupScrollAnimations();
+            });
+
+            return {
+                lang, t, search, errors, today, filteredRooms, isModalVisible, selectedRoom,
+                booking, totalNights, handleSearch, validateDates, openDetailsModal, closeModal,
+                calculateTotalPrice, handleBooking
+            };
+        }
+    }).mount('#app');
 </script>
+
 </body>
 </html>
-
