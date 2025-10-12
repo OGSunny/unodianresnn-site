@@ -3,662 +3,669 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ethereal Echoes Gallery | Conceptual Art & Digital Sculptures</title>
+    <title>Orbi City - Luxury Apartments Batumi</title>
     <style>
-        /* --- General Reset & Variables --- */
-        :root {
-            --color-bg-dark: #0A0A0A;
-            --color-bg-medium: #151515;
-            --color-text-light: #F0F0F0;
-            --color-text-muted: #B0B0B0;
-            --color-accent-gold: #D4AF37; /* A subtle, refined gold */
-            --color-accent-blue: #00A8E8; /* A vibrant, deep blue for highlights */
-
-            --font-heading: 'Cinzel Decorative', serif; /* For a dramatic, artistic feel */
-            --font-body: 'Montserrat', sans-serif; /* Clean and modern readability */
-
-            --spacing-unit: 1rem;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            font-family: var(--font-body);
-            color: var(--color-text-light);
-            background-color: var(--color-bg-dark);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            overflow-x: hidden; /* Prevent horizontal scroll from animations */
+            color: #333;
         }
 
-        /* --- Typography --- */
-        h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-heading);
-            color: var(--color-text-light);
-            margin-bottom: var(--spacing-unit);
-            font-weight: normal; /* Override default bold for artistic look */
-        }
-
-        h1 { font-size: 4.5rem; line-height: 1.1; letter-spacing: 2px; }
-        h2 { font-size: 3rem; letter-spacing: 1px; }
-        h3 { font-size: 1.8rem; color: var(--color-accent-gold); }
-        p { font-size: 1.1rem; color: var(--color-text-muted); margin-bottom: var(--spacing-unit) * 1.5; }
-        a { color: var(--color-accent-gold); text-decoration: none; transition: color 0.3s ease; }
-        a:hover { color: var(--color-accent-blue); }
-
-        /* --- Layout & Structure --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 var(--spacing-unit) * 2;
-            position: relative;
-            z-index: 2; /* Ensure content is above background effects */
-        }
-
-        section {
-            padding: var(--spacing-unit) * 8 0;
-            position: relative;
-            overflow: hidden; /* Contains any internal animations/bleeds */
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: var(--spacing-unit) * 6;
-            position: relative;
-            padding-bottom: var(--spacing-unit);
-        }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 2px;
-            background-color: var(--color-accent-gold);
-        }
-
-        /* --- Utility Classes --- */
-        .text-center { text-align: center; }
-
-        /* --- Header & Navigation --- */
         .header {
-            background: linear-gradient(180deg, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.6) 70%, rgba(10,10,10,0) 100%);
-            padding: var(--spacing-unit) * 1.5 0;
-            position: fixed;
-            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
             top: 0;
             z-index: 1000;
-            transition: background 0.4s ease;
-        }
-        .header.scrolled {
-            background-color: var(--color-bg-dark);
-            box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        .navbar {
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-family: var(--font-heading);
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: bold;
-            color: var(--color-text-light);
-            letter-spacing: 1px;
-            transition: color 0.3s ease;
-        }
-        .logo span {
-            color: var(--color-accent-gold);
-        }
-        .logo:hover {
-            color: var(--color-accent-blue);
         }
 
-        .nav-links {
-            list-style: none;
+        .lang-selector {
             display: flex;
-            align-items: center;
+            gap: 1rem;
         }
 
-        .nav-links li {
-            margin-left: var(--spacing-unit) * 3;
-        }
-
-        .nav-links a {
-            color: var(--color-text-muted);
-            font-weight: 500;
-            font-size: 1.05rem;
-            position: relative;
-            padding: var(--spacing-unit) * 0.5 0;
-            letter-spacing: 0.5px;
-        }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            background: var(--color-accent-gold);
-            bottom: 0;
-            left: 0;
-            transition: width 0.3s ease;
-        }
-        .nav-links a:hover {
-            color: var(--color-text-light);
-        }
-        .nav-links a:hover::after {
-            width: 100%;
-            background: var(--color-accent-blue);
-        }
-        
-        .hamburger {
-            display: none;
+        .lang-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
             cursor: pointer;
-            flex-direction: column;
-            gap: 6px;
-            z-index: 1001; /* Above mobile menu */
-        }
-        .hamburger .bar {
-            width: 30px;
-            height: 2px;
-            background-color: var(--color-text-light);
-            border-radius: 5px;
-            transition: all 0.3s ease-in-out;
+            transition: all 0.3s;
+            font-weight: 600;
         }
 
-        /* --- Hero Section --- */
-        #hero {
-            position: relative;
-            height: 100vh;
+        .lang-btn:hover, .lang-btn.active {
+            background: white;
+            color: #667eea;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200') center/cover;
+            height: 600px;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: linear-gradient(135deg, var(--color-bg-dark) 0%, #1a0f21 50%, var(--color-bg-dark) 100%);
-            overflow: hidden;
-            padding-top: 0; /* Full height */
-        }
-
-        #hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://images.unsplash.com/photo-1549490216-2d334546416f?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1800') no-repeat center center/cover;
-            opacity: 0.2; /* Subtly integrated */
-            z-index: 1;
-            transform: scale(1.05); /* Slight scale for depth */
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 900px;
+            color: white;
         }
 
         .hero-content h1 {
-            color: var(--color-text-light);
-            text-shadow: 0 0 15px rgba(0,0,0,0.5);
-            margin-bottom: var(--spacing-unit) * 2;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s;
         }
+
         .hero-content p {
-            font-size: 1.3rem;
-            max-width: 700px;
-            margin: 0 auto var(--spacing-unit) * 3 auto;
-            color: var(--color-text-light);
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s 0.2s backwards;
         }
 
-        .btn {
-            display: inline-block;
-            background-color: var(--color-accent-gold);
-            color: var(--color-bg-dark);
-            padding: var(--spacing-unit) * 1.2 var(--spacing-unit) * 2.5;
-            border-radius: 50px;
-            font-weight: 700;
-            font-family: var(--font-body);
-            letter-spacing: 0.5px;
-            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 8px 25px rgba(212,175,55,0.2);
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .booking-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            max-width: 900px;
+            margin: -80px auto 0;
+            position: relative;
+            z-index: 10;
+            animation: fadeInUp 1s 0.4s backwards;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .form-group input, .form-group select {
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
             font-size: 1.1rem;
-        }
-        .btn:hover {
-            transform: translateY(-5px);
-            background-color: var(--color-accent-blue);
-            color: var(--color-text-light);
-            box-shadow: 0 12px 30px rgba(0, 168, 232, 0.3);
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+            align-self: end;
         }
 
-        /* --- Gallery Section --- */
-        #gallery {
-            background-color: var(--color-bg-medium);
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
         }
 
-        .gallery-grid {
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .rooms-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--spacing-unit) * 3;
+            gap: 2rem;
+            margin-bottom: 4rem;
         }
 
-        .gallery-item {
-            position: relative;
+        .room-card {
+            background: white;
+            border-radius: 15px;
             overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-        .gallery-item:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+
+        .room-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-        .gallery-item img {
+
+        .room-image {
             width: 100%;
-            height: 350px; /* Consistent height for art pieces */
+            height: 250px;
             object-fit: cover;
-            display: block;
-            filter: grayscale(80%) brightness(0.7);
-            transition: filter 0.5s ease;
-        }
-        .gallery-item:hover img {
-            filter: grayscale(0%) brightness(1);
         }
 
-        .item-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
-            padding: var(--spacing-unit) * 2;
-            opacity: 0;
-            transform: translateY(100%);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            text-align: left;
+        .room-content {
+            padding: 1.5rem;
         }
-        .gallery-item:hover .item-info {
-            opacity: 1;
-            transform: translateY(0);
+
+        .room-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #333;
         }
-        .item-info h4 {
-            font-family: var(--font-heading);
-            font-size: 1.4rem;
-            margin-bottom: var(--spacing-unit) * 0.5;
-            color: var(--color-accent-gold);
+
+        .room-description {
+            color: #666;
+            margin-bottom: 1rem;
         }
-        .item-info p {
+
+        .room-price {
+            font-size: 1.8rem;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .amenities {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .amenity {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: #666;
             font-size: 0.9rem;
-            color: var(--color-text-muted);
-            margin-bottom: 0;
         }
 
-        /* --- Vision Section --- */
-        #vision {
-            background: radial-gradient(circle at center, var(--color-bg-medium) 0%, var(--color-bg-dark) 100%);
-            text-align: center;
+        .book-btn {
+            width: 100%;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
         }
-        .vision-content {
-            max-width: 900px;
+
+        .book-btn:hover {
+            background: #5568d3;
+        }
+
+        .features {
+            background: #f8f9fa;
+            padding: 4rem 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
             margin: 0 auto;
         }
-        .vision-content h2 {
-            margin-bottom: var(--spacing-unit) * 3;
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
         }
-        .vision-content p {
-            font-size: 1.2rem;
-            margin-bottom: var(--spacing-unit) * 3;
-        }
-        
-        /* --- Contact Section --- */
-        #contact {
-            background-color: var(--color-bg-dark);
-        }
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--spacing-unit) * 4;
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
             align-items: center;
-        }
-        .contact-info h3 {
-            margin-bottom: var(--spacing-unit) * 2;
-        }
-        .contact-info p {
-            margin-bottom: var(--spacing-unit);
-        }
-        .contact-info p strong {
-            color: var(--color-text-light);
-        }
-
-        .contact-form {
-            background-color: var(--color-bg-medium);
-            padding: var(--spacing-unit) * 3;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-        }
-        .contact-form label {
-            display: block;
-            margin-bottom: var(--spacing-unit) * 0.5;
-            color: var(--color-text-light);
-            font-weight: 500;
-        }
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: var(--spacing-unit);
-            margin-bottom: var(--spacing-unit) * 1.5;
-            border: 1px solid var(--secondary-color);
-            background-color: var(--primary-color);
-            color: var(--text-primary);
-            border-radius: 5px;
-            font-family: var(--font-body);
-            font-size: 1rem;
-        }
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            outline: none;
-            border-color: var(--color-accent-gold);
-            box-shadow: 0 0 0 2px rgba(212,175,55,0.3);
-        }
-        .contact-form textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-        .contact-form .btn {
-            width: 100%;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        /* --- Footer --- */
-        .footer {
-            background-color: var(--color-bg-medium);
-            padding: var(--spacing-unit) * 4 0;
-            text-align: center;
-            border-top: 1px solid var(--color-bg-dark);
-        }
-
-        .social-links {
-            margin-bottom: var(--spacing-unit) * 2;
-        }
-        .social-links a {
+            justify-content: center;
+            color: white;
             font-size: 1.8rem;
-            margin: 0 var(--spacing-unit);
-            color: var(--color-text-muted);
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-        .social-links a:hover {
-            color: var(--color-accent-gold);
-            transform: translateY(-3px);
-        }
-        .footer p {
-            font-size: 0.9rem;
-            color: var(--color-text-muted);
-            margin-bottom: 0;
         }
 
-        /* --- Responsive Adjustments --- */
-        @media (max-width: 992px) {
-            h1 { font-size: 3.5rem; }
-            h2 { font-size: 2.5rem; }
-            .nav-links li { margin-left: var(--spacing-unit) * 2; }
-            .contact-grid { grid-template-columns: 1fr; }
-            .contact-info { margin-bottom: var(--spacing-unit) * 3; text-align: center; }
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
         }
 
-        @media (max-width: 768px) {
-            h1 { font-size: 2.8rem; }
-            h2 { font-size: 2rem; }
-            h3 { font-size: 1.5rem; }
-            p { font-size: 1rem; }
-
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                background-color: var(--color-bg-medium);
-                position: absolute;
-                top: 100%; /* Below the header */
-                left: 0;
-                text-align: center;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-                border-radius: 0 0 8px 8px;
-            }
-            .nav-links.active {
-                display: flex;
-            }
-            .nav-links li {
-                margin: var(--spacing-unit) 0;
-                padding: var(--spacing-unit) 0;
-                border-bottom: 1px solid var(--color-bg-dark);
-            }
-            .nav-links li:last-child {
-                border-bottom: none;
-            }
-            .nav-links a {
-                color: var(--color-text-light);
-                font-size: 1.1rem;
-                display: block; /* Make links full width */
-                padding: var(--spacing-unit) 0;
-            }
-            .nav-links a::after { display: none; } /* Remove underline for mobile */
-            .nav-links a:hover { color: var(--color-accent-gold); }
-
-            .hamburger {
-                display: flex;
-            }
-            .hamburger.active .bar:nth-child(2) { opacity: 0; }
-            .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-            .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-            
-            section {
-                padding: var(--spacing-unit) * 6 0;
-            }
-            .section-title {
-                margin-bottom: var(--spacing-unit) * 4;
-            }
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
 
-        @media (max-width: 480px) {
-            h1 { font-size: 2rem; }
-            .hero-content p {
-                font-size: 1rem;
-            }
-            .btn {
-                padding: var(--spacing-unit) var(--spacing-unit) * 1.5;
-                font-size: 0.95rem;
-            }
-            .gallery-grid {
-                grid-template-columns: 1fr;
-            }
-            .item-info h4 {
-                font-size: 1.2rem;
-            }
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .footer-section p {
+            margin-bottom: 0.5rem;
+        }
+
+        .rtl {
+            direction: rtl;
         }
     </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-
     <header class="header">
-        <div class="container navbar">
-            <a href="#" class="logo">Ethereal<span>Echoes</span></a>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#hero">Home</a></li>
-                    <li><a href="#gallery">Gallery</a></li>
-                    <li><a href="#vision">Our Vision</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+        <div class="nav-container">
+            <div class="logo" data-translate="title">Orbi City</div>
+            <div class="lang-selector">
+                <button class="lang-btn active" onclick="changeLanguage('en')">EN</button>
+                <button class="lang-btn" onclick="changeLanguage('ka')">🇬🇪 GE</button>
+                <button class="lang-btn" onclick="changeLanguage('ar')">🇸🇦 AR</button>
+                <button class="lang-btn" onclick="changeLanguage('ru')">🇷🇺 RU</button>
+                <button class="lang-btn" onclick="changeLanguage('tr')">🇹🇷 TR</button>
             </div>
         </div>
     </header>
 
-    <main>
-        <section id="hero">
-            <div class="container hero-content">
-                <h1>Where Art Transcends Reality</h1>
-                <p>Discover a curated collection of conceptual art and digital sculptures that challenge perception and evoke the sublime.</p>
-                <a href="#gallery" class="btn">View Collection</a>
+    <section class="hero">
+        <div class="hero-content">
+            <h1 data-translate="heroTitle">Welcome to Orbi City</h1>
+            <p data-translate="heroSubtitle">Luxury Apartments in the Heart of Batumi</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <form class="booking-form">
+            <div class="form-group">
+                <label data-translate="checkIn">Check-in</label>
+                <input type="date" required>
             </div>
-        </section>
-
-        <section id="gallery">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Current Exhibition</h2>
-                </div>
-                <div class="gallery-grid">
-                    <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1518018768696-fc8789cd4f0f?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600" alt="Abstract Art Piece 1">
-                        <div class="item-info">
-                            <h4>"Astral Bloom"</h4>
-                            <p>Acrylic on canvas, 2024</p>
-                            <p>Artist: Elara Vance</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1627885741630-f8426090e941?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600" alt="Abstract Art Piece 2">
-                        <div class="item-info">
-                            <h4>"Temporal Drift"</h4>
-                            <p>Digital sculpture, 2023</p>
-                            <p>Artist: Kaelen Frost</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1549749591-64547285a73e?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600" alt="Abstract Art Piece 3">
-                        <div class="item-info">
-                            <h4>"Resonance Cascade"</h4>
-                            <p>Mixed media, 2024</p>
-                            <p>Artist: Lyra Thorne</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://images.unsplash.com/photo-1579783902672-4d2a138c353f?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600" alt="Abstract Art Piece 4">
-                        <div class="item-info">
-                            <h4>"Quantum Bloom"</h4>
-                            <p>Generative art print, 2023</p>
-                            <p>Artist: Cyrus Wren</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label data-translate="checkOut">Check-out</label>
+                <input type="date" required>
             </div>
-        </section>
-
-        <section id="vision">
-            <div class="container vision-content">
-                <div class="section-title">
-                    <h2>Our Vision</h2>
-                </div>
-                <h3>Curating the Edge of Perception</h3>
-                <p>Ethereal Echoes Gallery is more than just a space; it's a journey into the uncharted territories of artistic expression. We believe art should not merely reflect reality but redefine it, offering new perspectives and profound emotional resonance.</p>
-                <p>Our commitment is to showcase artists who push boundaries, exploring themes of existence, consciousness, and the digital sublime through innovative mediums. Each piece is selected for its ability to provoke thought, inspire wonder, and leave an indelible mark on the viewer's imagination.</p>
+            <div class="form-group">
+                <label data-translate="guests">Guests</label>
+                <select>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5+</option>
+                </select>
             </div>
-        </section>
+            <button type="submit" class="search-btn" data-translate="searchBtn">Search Rooms</button>
+        </form>
+    </div>
 
-        <section id="contact">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Connect With Us</h2>
-                </div>
-                <div class="contact-grid">
-                    <div class="contact-info">
-                        <h3>Inquiries & Visits</h3>
-                        <p>We welcome private viewings and press inquiries. Please reach out to schedule an appointment or for more information on our artists and upcoming exhibitions.</p>
-                        <p><strong>Email:</strong> <a href="mailto:info@etherealechoes.art">info@etherealechoes.art</a></p>
-                        <p><strong>Phone:</strong> +1 (555) ART-GALLERY</p>
-                        <p><strong>Address:</strong> 17 Nebula Lane, Art District, Metropia, XY 90210</p>
+    <div class="container">
+        <h2 class="section-title" data-translate="ourRooms">Our Rooms</h2>
+        <div class="rooms-grid">
+            <div class="room-card">
+                <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600" alt="Deluxe Room" class="room-image">
+                <div class="room-content">
+                    <h3 class="room-title" data-translate="room1Title">Deluxe Sea View</h3>
+                    <p class="room-description" data-translate="room1Desc">Spacious apartment with panoramic sea views and modern amenities</p>
+                    <div class="amenities">
+                        <span class="amenity">🛏️ 2 <span data-translate="beds">Beds</span></span>
+                        <span class="amenity">📶 WiFi</span>
+                        <span class="amenity">🅿️ <span data-translate="parking">Parking</span></span>
                     </div>
-                    <div class="contact-form">
-                        <form>
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" required>
-
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
-
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject">
-
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" required></textarea>
-
-                            <button type="submit" class="btn">Send Message</button>
-                        </form>
-                    </div>
+                    <div class="room-price">$120<span style="font-size: 1rem; color: #666;">/<span data-translate="night">night</span></span></div>
+                    <button class="book-btn" data-translate="bookNow">Book Now</button>
                 </div>
             </div>
-        </section>
-    </main>
+
+            <div class="room-card">
+                <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600" alt="Family Suite" class="room-image">
+                <div class="room-content">
+                    <h3 class="room-title" data-translate="room2Title">Family Suite</h3>
+                    <p class="room-description" data-translate="room2Desc">Perfect for families with separate living area and full kitchen</p>
+                    <div class="amenities">
+                        <span class="amenity">🛏️ 3 <span data-translate="beds">Beds</span></span>
+                        <span class="amenity">🍳 <span data-translate="kitchen">Kitchen</span></span>
+                        <span class="amenity">🌊 <span data-translate="seaview">Sea View</span></span>
+                    </div>
+                    <div class="room-price">$180<span style="font-size: 1rem; color: #666;">/<span data-translate="night">night</span></span></div>
+                    <button class="book-btn" data-translate="bookNow">Book Now</button>
+                </div>
+            </div>
+
+            <div class="room-card">
+                <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600" alt="Studio Apartment" class="room-image">
+                <div class="room-content">
+                    <h3 class="room-title" data-translate="room3Title">Studio Apartment</h3>
+                    <p class="room-description" data-translate="room3Desc">Cozy studio perfect for couples or solo travelers</p>
+                    <div class="amenities">
+                        <span class="amenity">🛏️ 1 <span data-translate="bed">Bed</span></span>
+                        <span class="amenity">📺 TV</span>
+                        <span class="amenity">☕ <span data-translate="coffee">Coffee</span></span>
+                    </div>
+                    <div class="room-price">$85<span style="font-size: 1rem; color: #666;">/<span data-translate="night">night</span></span></div>
+                    <button class="book-btn" data-translate="bookNow">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="features">
+        <h2 class="section-title" data-translate="amenities">Amenities & Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📶</div>
+                <h3 data-translate="freeWifi">Free WiFi</h3>
+                <p data-translate="wifiDesc">High-speed internet throughout the property</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🅿️</div>
+                <h3 data-translate="parking">Parking</h3>
+                <p data-translate="parkingDesc">Free secure parking for all guests</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏊</div>
+                <h3 data-translate="pool">Swimming Pool</h3>
+                <p data-translate="poolDesc">Outdoor pool with stunning views</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏋️</div>
+                <h3 data-translate="gym">Fitness Center</h3>
+                <p data-translate="gymDesc">Modern gym with latest equipment</p>
+            </div>
+        </div>
+    </section>
 
     <footer class="footer">
-        <div class="container">
-            <div class="social-links">
-                <a href="#" aria-label="Instagram">IG</a>
-                <a href="#" aria-label="Twitter">TW</a>
-                <a href="#" aria-label="ArtStation">AS</a>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 data-translate="contactUs">Contact Us</h3>
+                <p>📞 +995 555 123 456</p>
+                <p>✉️ info@orbicity.ge</p>
             </div>
-            <p>&copy; 2025 Ethereal Echoes Gallery. All Rights Reserved.</p>
+            <div class="footer-section">
+                <h3 data-translate="location">Location</h3>
+                <p data-translate="address">Orbi City Complex, Batumi, Georgia</p>
+            </div>
+            <div class="footer-section">
+                <h3 data-translate="followUs">Follow Us</h3>
+                <p>Facebook | Instagram | Twitter</p>
+            </div>
         </div>
+        <p>&copy; 2024 Orbi City. <span data-translate="rights">All rights reserved.</span></p>
     </footer>
 
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Header scroll effect
-        const header = document.querySelector('.header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) { // Adjust threshold as needed
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
+        const translations = {
+            en: {
+                title: "Orbi City",
+                heroTitle: "Welcome to Orbi City",
+                heroSubtitle: "Luxury Apartments in the Heart of Batumi",
+                checkIn: "Check-in",
+                checkOut: "Check-out",
+                guests: "Guests",
+                searchBtn: "Search Rooms",
+                ourRooms: "Our Rooms",
+                room1Title: "Deluxe Sea View",
+                room1Desc: "Spacious apartment with panoramic sea views and modern amenities",
+                room2Title: "Family Suite",
+                room2Desc: "Perfect for families with separate living area and full kitchen",
+                room3Title: "Studio Apartment",
+                room3Desc: "Cozy studio perfect for couples or solo travelers",
+                beds: "Beds",
+                bed: "Bed",
+                parking: "Parking",
+                kitchen: "Kitchen",
+                seaview: "Sea View",
+                coffee: "Coffee",
+                night: "night",
+                bookNow: "Book Now",
+                amenities: "Amenities & Features",
+                freeWifi: "Free WiFi",
+                wifiDesc: "High-speed internet throughout the property",
+                parkingDesc: "Free secure parking for all guests",
+                pool: "Swimming Pool",
+                poolDesc: "Outdoor pool with stunning views",
+                gym: "Fitness Center",
+                gymDesc: "Modern gym with latest equipment",
+                contactUs: "Contact Us",
+                location: "Location",
+                address: "Orbi City Complex, Batumi, Georgia",
+                followUs: "Follow Us",
+                rights: "All rights reserved."
+            },
+            ka: {
+                title: "ორბი სითი",
+                heroTitle: "კეთილი იყოს თქვენი მობრძანება ორბი სითიში",
+                heroSubtitle: "ლუქსუს აპარტამენტები ბათუმის გულში",
+                checkIn: "დაბინავება",
+                checkOut: "გამოწერა",
+                guests: "სტუმრები",
+                searchBtn: "ძებნა",
+                ourRooms: "ჩვენი ნომრები",
+                room1Title: "დელუქს ზღვის ხედით",
+                room1Desc: "ფართო აპარტამენტი პანორამული ზღვის ხედით და თანამედროვე კეთილმოწყობით",
+                room2Title: "საოჯახო აპარტამენტი",
+                room2Desc: "იდეალურია ოჯახებისთვის ცალკე საცხოვრებელი ფართით და სრული სამზარეულოთი",
+                room3Title: "სტუდია",
+                room3Desc: "მყუდრო სტუდია წყვილებისთვის ან სოლო მოგზაურებისთვის",
+                beds: "საწოლი",
+                bed: "საწოლი",
+                parking: "პარკინგი",
+                kitchen: "სამზარეულო",
+                seaview: "ზღვის ხედი",
+                coffee: "ყავა",
+                night: "ღამე",
+                bookNow: "დაჯავშნა",
+                amenities: "კეთილმოწყობა",
+                freeWifi: "უფასო WiFi",
+                wifiDesc: "მაღალსიჩქარიანი ინტერნეტი მთელს ტერიტორიაზე",
+                parkingDesc: "უფასო დაცული პარკინგი ყველა სტუმრისთვის",
+                pool: "საცურაო აუზი",
+                poolDesc: "გარე აუზი განსაცვიფრებელი ხედებით",
+                gym: "ფიტნეს ცენტრი",
+                gymDesc: "თანამედროვე სავარჯიშო დარბაზი უახლესი აღჭურვილობით",
+                contactUs: "დაგვიკავშირდით",
+                location: "მდებარეობა",
+                address: "ორბი სითი კომპლექსი, ბათუმი, საქართველო",
+                followUs: "გამოგვყევით",
+                rights: "ყველა უფლება დაცულია."
+            },
+            ar: {
+                title: "أوربي سيتي",
+                heroTitle: "مرحباً بك في أوربي سيتي",
+                heroSubtitle: "شقق فاخرة في قلب باتومي",
+                checkIn: "تسجيل الدخول",
+                checkOut: "تسجيل الخروج",
+                guests: "الضيوف",
+                searchBtn: "البحث عن الغرف",
+                ourRooms: "غرفنا",
+                room1Title: "ديلوكس بإطلالة على البحر",
+                room1Desc: "شقة واسعة مع إطلالات بانورامية على البحر ووسائل راحة حديثة",
+                room2Title: "جناح عائلي",
+                room2Desc: "مثالي للعائلات مع منطقة معيشة منفصلة ومطبخ كامل",
+                room3Title: "شقة استوديو",
+                room3Desc: "استوديو مريح مثالي للأزواج أو المسافرين الفرديين",
+                beds: "أسرة",
+                bed: "سرير",
+                parking: "موقف سيارات",
+                kitchen: "مطبخ",
+                seaview: "إطلالة على البحر",
+                coffee: "قهوة",
+                night: "ليلة",
+                bookNow: "احجز الآن",
+                amenities: "المرافق والميزات",
+                freeWifi: "واي فاي مجاني",
+                wifiDesc: "إنترنت عالي السرعة في جميع أنحاء العقار",
+                parkingDesc: "موقف سيارات آمن مجاني لجميع الضيوف",
+                pool: "حمام سباحة",
+                poolDesc: "حمام سباحة خارجي مع مناظر خلابة",
+                gym: "مركز لياقة بدنية",
+                gymDesc: "صالة رياضية حديثة مع أحدث المعدات",
+                contactUs: "اتصل بنا",
+                location: "الموقع",
+                address: "مجمع أوربي سيتي، باتومي، جورجيا",
+                followUs: "تابعنا",
+                rights: "جميع الحقوق محفوظة."
+            },
+            ru: {
+                title: "Орби Сити",
+                heroTitle: "Добро пожаловать в Орби Сити",
+                heroSubtitle: "Роскошные Апартаменты в Сердце Батуми",
+                checkIn: "Заезд",
+                checkOut: "Выезд",
+                guests: "Гости",
+                searchBtn: "Поиск Номеров",
+                ourRooms: "Наши Номера",
+                room1Title: "Делюкс с Видом на Море",
+                room1Desc: "Просторные апартаменты с панорамным видом на море и современными удобствами",
+                room2Title: "Семейные Апартаменты",
+                room2Desc: "Идеально для семей с отдельной гостиной и полностью оборудованной кухней",
+                room3Title: "Квартира-Студия",
+                room3Desc: "Уютная студия идеально подходит для пар или одиноких путешественников",
+                beds: "Кровати",
+                bed: "Кровать",
+                parking: "Парковка",
+                kitchen: "Кухня",
+                seaview: "Вид на Море",
+                coffee: "Кофе",
+                night: "ночь",
+                bookNow: "Забронировать",
+                amenities: "Удобства и Особенности",
+                freeWifi: "Бесплатный WiFi",
+                wifiDesc: "Высокоскоростной интернет по всей территории",
+                parkingDesc: "Бесплатная охраняемая парковка для всех гостей",
+                pool: "Бассейн",
+                poolDesc: "Открытый бассейн с потрясающими видами",
+                gym: "Фитнес-центр",
+                gymDesc: "Современный тренажерный зал с новейшим оборудованием",
+                contactUs: "Свяжитесь с Нами",
+                location: "Расположение",
+                address: "Комплекс Орби Сити, Батуми, Грузия",
+                followUs: "Следите за Нами",
+                rights: "Все права защищены."
+            },
+            tr: {
+                title: "Orbi City",
+                heroTitle: "Orbi City'ye Hoş Geldiniz",
+                heroSubtitle: "Batum'un Kalbinde Lüks Daireler",
+                checkIn: "Giriş",
+                checkOut: "Çıkış",
+                guests: "Misafirler",
+                searchBtn: "Oda Ara",
+                ourRooms: "Odalarımız",
+                room1Title: "Deniz Manzaralı Deluxe",
+                room1Desc: "Panoramik deniz manzarası ve modern olanakları olan geniş daire",
+                room2Title: "Aile Süiti",
+                room2Desc: "Ayrı oturma alanı ve tam mutfaklı aileler için mükemmel",
+                room3Title: "Stüdyo Daire",
+                room3Desc: "Çiftler veya solo gezginler için rahat stüdyo",
+                beds: "Yatak",
+                bed: "Yatak",
+                parking: "Otopark",
+                kitchen: "Mutfak",
+                seaview: "Deniz Manzarası",
+                coffee: "Kahve",
+                night: "gece",
+                bookNow: "Şimdi Rezervasyon Yap",
+                amenities: "Olanaklar ve Özellikler",
+                freeWifi: "Ücretsiz WiFi",
+                wifiDesc: "Tesis genelinde yüksek hızlı internet",
+                parkingDesc: "Tüm misafirler için ücretsiz güvenli otopark",
+                pool: "Yüzme Havuzu",
+                poolDesc: "Muhteşem manzaralı açık havuz",
+                gym: "Fitness Merkezi",
+                gymDesc: "En son ekipmanlı modern spor salonu",
+                contactUs: "Bize Ulaşın",
+                location: "Konum",
+                address: "Orbi City Kompleksi, Batum, Gürcistan",
+                followUs: "Bizi Takip Edin",
+                rights: "Tüm hakları saklıdır."
             }
+        };
+
+        function changeLanguage(lang) {
+            const elements = document.querySelectorAll('[data-translate]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (lang === 'ar') {
+                document.body.classList.add('rtl');
+            } else {
+                document.body.classList.remove('rtl');
+            }
+        }
+
+        document.querySelector('.booking-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Booking request submitted! We will contact you shortly.');
         });
 
-        // Hamburger menu toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.nav-links');
-
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            hamburger.classList.toggle('active');
-            document.body.classList.toggle('no-scroll'); // Optional: prevent body scroll when menu is open
-        });
-
-        // Close mobile menu when a link is clicked
-        document.querySelectorAll('.nav-links li a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                hamburger.classList.remove('active');
-                document.body.classList.remove('no-scroll');
+        document.querySelectorAll('.book-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                alert('Room booking initiated! Please complete the form above.');
             });
         });
     </script>
