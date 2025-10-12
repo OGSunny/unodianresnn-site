@@ -3,24 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orbi City - Premium Residences in Batumi</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>zv.gegidz3 | Developer Portfolio</title>
     <style>
-        :root {
-            --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%);
-            --secondary-gradient: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
-            --accent-color: #f59e0b;
-            --text-dark: #1f2937;
-            --text-light: #6b7280;
-            --bg-light: #f8fafc;
-            --white: #ffffff;
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-            --border-radius: 12px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -28,187 +12,165 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            color: #fff;
             overflow-x: hidden;
         }
 
-        .header {
-            background: var(--primary-gradient);
-            color: var(--white);
-            padding: 1rem 0;
+        .animated-bg {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
-            z-index: 1000;
-            box-shadow: var(--shadow-md);
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at 20% 30%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 70%, rgba(118, 75, 162, 0.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at 50% 50%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
         }
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .cursor-glow {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s;
+        }
+
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 12px 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-content {
             display: flex;
-            justify-content: space-between;
+            gap: 40px;
             align-items: center;
         }
 
         .logo {
-            font-size: 1.75rem;
-            font-weight: 800;
-            letter-spacing: -0.025em;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #667eea 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .logo:hover {
-            color: var(--accent-color);
-        }
-
-        .nav-menu {
+        .nav-links {
             display: flex;
-            list-style: none;
-            gap: 2rem;
+            gap: 30px;
         }
 
-        .nav-item a {
-            color: var(--white);
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
+            font-size: 13px;
             font-weight: 500;
-            transition: var(--transition);
+            transition: all 0.3s;
             position: relative;
         }
 
-        .nav-item a:hover {
-            color: var(--accent-color);
+        .nav-links a:hover {
+            color: #fff;
         }
 
-        .nav-item a::after {
+        .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -4px;
+            bottom: -5px;
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--accent-color);
-            transition: var(--transition);
+            background: linear-gradient(90deg, #667eea, #ec4899);
+            transition: width 0.3s;
         }
 
-        .nav-item a:hover::after {
+        .nav-links a:hover::after {
             width: 100%;
         }
 
-        .lang-selector {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .lang-btn {
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.3);
-            color: var(--white);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-            font-size: 0.875rem;
-        }
-
-        .lang-btn:hover, .lang-btn.active {
-            background: var(--white);
-            color: #4f46e5;
-        }
-
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--white);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            color: var(--white);
             position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%);
+            text-align: center;
         }
 
         .hero-content {
             position: relative;
-            z-index: 1;
-            max-width: 800px;
-            padding: 0 1rem;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 40px;
         }
 
-        .hero-content h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            margin-bottom: 1rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .hero-content p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-            animation: fadeInUp 1s 0.2s ease-out backwards;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary, .btn-secondary {
-            padding: 1rem 2rem;
-            border-radius: var(--border-radius);
+        .badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 50px;
+            font-size: 12px;
             font-weight: 600;
-            text-decoration: none;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s;
         }
 
-        .btn-primary {
-            background: var(--secondary-gradient);
-            color: var(--white);
-            box-shadow: var(--shadow-lg);
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--white);
-            border: 2px solid var(--white);
-        }
-
-        .btn-secondary:hover {
-            background: var(--white);
-            color: var(--text-dark);
+        .hero h1 {
+            font-size: clamp(50px, 10vw, 100px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            letter-spacing: -3px;
+            animation: fadeInUp 0.8s 0.2s backwards;
         }
 
         @keyframes fadeInUp {
@@ -222,1082 +184,567 @@
             }
         }
 
-        .booking-overlay {
-            background: var(--white);
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: var(--shadow-lg);
-            max-width: 1000px;
-            margin: 0 auto;
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #ec4899 50%, #f59e0b 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.5);
+            max-width: 650px;
+            line-height: 1.7;
+            margin: 0 auto 50px;
+            animation: fadeInUp 0.8s 0.4s backwards;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s 0.6s backwards;
+        }
+
+        .btn {
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #ec4899 100%);
+            color: #fff;
+            border: none;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-primary::before {
+            content: '';
             position: absolute;
-            bottom: -100px;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 10;
-            animation: slideUp 1s 0.6s ease-out backwards;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.5rem;
+            animation: bounce 2s infinite;
         }
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateX(-50%) translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
         }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
+        .scroll-indicator span {
+            display: block;
+            width: 24px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            position: relative;
         }
 
-        .form-group label {
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            font-size: 0.875rem;
+        .scroll-indicator span::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: #fff;
+            border-radius: 50px;
+            animation: scroll 2s infinite;
         }
 
-        .form-group input, .form-group select {
-            padding: 0.875rem;
-            border: 2px solid #e5e7eb;
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            transition: var(--transition);
-            background: var(--bg-light);
+        @keyframes scroll {
+            0% { top: 8px; opacity: 1; }
+            100% { top: 24px; opacity: 0; }
         }
 
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: #4f46e5;
-            background: var(--white);
-        }
-
-        .search-btn {
-            background: var(--primary-gradient);
-            color: var(--white);
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            align-self: end;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .search-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+        .section {
+            padding: 120px 0;
+            position: relative;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1.5rem;
+            padding: 0 40px;
         }
 
-        .section-padding {
-            padding: 5rem 0;
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            color: #667eea;
         }
 
         .section-title {
-            text-align: center;
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 3rem;
+            font-size: clamp(40px, 6vw, 64px);
             font-weight: 800;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
         }
 
-        .rooms-grid {
+        .section-subtitle {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.5);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
         }
 
-        .room-card {
-            background: var(--white);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-            transition: var(--transition);
+        .skill-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            overflow: hidden;
         }
 
-        .room-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .room-image {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-        }
-
-        .room-badge {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: var(--accent-color);
-            color: var(--white);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .room-content {
-            padding: 1.5rem;
-        }
-
-        .room-title {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-dark);
-            font-weight: 700;
-        }
-
-        .room-description {
-            color: var(--text-light);
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-        }
-
-        .room-price {
-            font-size: 1.75rem;
-            color: var(--accent-color);
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .room-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            font-size: 0.875rem;
-            color: var(--text-light);
-        }
-
-        .amenities {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .amenity {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            background: var(--bg-light);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-        }
-
-        .book-btn {
-            width: 100%;
-            background: var(--primary-gradient);
-            color: var(--white);
-            border: none;
-            padding: 1rem;
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .book-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .availability-indicator {
+        .skill-card::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #10b981 0%, #f59e0b 50%, #ef4444 100%);
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
         }
 
-        .features {
-            background: var(--bg-light);
+        .skill-card:hover::before {
+            opacity: 1;
         }
 
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+        .skill-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(102, 126, 234, 0.4);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.2);
         }
 
-        .feature-card {
-            text-align: center;
-            padding: 2.5rem 1.5rem;
-            background: var(--white);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .feature-icon {
+        .skill-icon {
             width: 70px;
             height: 70px;
-            margin: 0 auto 1.5rem;
-            background: var(--primary-gradient);
-            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #ec4899 100%);
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--white);
-            font-size: 1.5rem;
-        }
-
-        .feature-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .feature-card p {
-            color: var(--text-light);
-        }
-
-        .testimonials {
-            background: var(--white);
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .testimonial-card {
-            padding: 2rem;
-            background: var(--bg-light);
-            border-radius: var(--border-radius);
-            text-align: center;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 1rem;
-            color: var(--text-dark);
-        }
-
-        .testimonial-author {
-            font-weight: 600;
-            color: var(--text-light);
-        }
-
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-
-        .gallery-item {
+            margin-bottom: 25px;
+            font-size: 32px;
             position: relative;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            height: 200px;
+            z-index: 1;
         }
 
-        .gallery-item img {
+        .skill-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .skill-card p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 15px;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        .languages {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 60px;
+        }
+
+        .lang-tag {
+            padding: 14px 28px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lang-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.2), transparent);
+            transition: left 0.5s;
         }
 
-        .gallery-item:hover img {
-            transform: scale(1.05);
+        .lang-tag:hover::before {
+            left: 100%;
         }
 
-        .footer {
-            background: var(--text-dark);
-            color: var(--white);
-            padding: 3rem 0 1rem;
+        .lang-tag:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: rgba(102, 126, 234, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
         }
 
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto 2rem;
-            padding: 0 1.5rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 1rem;
-            color: var(--accent-color);
-            font-size: 1.125rem;
-        }
-
-        .footer-section p, .footer-section a {
-            margin-bottom: 0.5rem;
-            color: var(--text-light);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-section a:hover {
-            color: var(--accent-color);
-        }
-
-        .footer-bottom {
+        .contact-section {
             text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: var(--text-light);
+            padding: 150px 0;
+            position: relative;
         }
 
-        .rtl {
-            direction: rtl;
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.2) 0%, transparent 70%);
+            filter: blur(60px);
+            pointer-events: none;
         }
 
-        .hidden {
-            display: none;
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px 50px;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            min-width: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .contact-card:hover::before {
+            opacity: 1;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(102, 126, 234, 0.4);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+        }
+
+        .contact-card .platform {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-card .handle {
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer {
+            padding: 60px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 14px;
         }
 
         @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
+            nav {
+                padding: 10px 20px;
             }
 
-            .mobile-menu-toggle {
-                display: block;
+            .nav-content {
+                gap: 20px;
             }
 
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
+            .nav-links {
+                gap: 15px;
             }
 
-            .booking-overlay {
-                margin: 0 -1.5rem;
-                bottom: -60px;
-                border-radius: 0;
-                padding: 1.5rem;
-                transform: none;
-                left: 0;
-                right: 0;
+            .hero h1 {
+                font-size: 50px;
             }
 
-            .section-padding {
-                padding: 3rem 0;
+            .section-title {
+                font-size: 40px;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
             }
         }
 
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .modal-content {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            max-width: 500px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .close-modal {
-            float: right;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-light);
-        }
-
-        .guest-form {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .guest-form input {
-            padding: 0.875rem;
-            border: 2px solid #e5e7eb;
-            border-radius: var(--border-radius);
-        }
-
-        .submit-booking {
-            background: var(--primary-gradient);
-            color: var(--white);
-            border: none;
-            padding: 1rem;
-            border-radius: var(--border-radius);
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="nav-container">
-            <div class="logo" data-translate="title">Orbi City</div>
-            <ul class="nav-menu">
-                <li class="nav-item"><a href="#rooms" data-translate="rooms">Rooms</a></li>
-                <li class="nav-item"><a href="#amenities" data-translate="amenities">Amenities</a></li>
-                <li class="nav-item"><a href="#gallery" data-translate="gallery">Gallery</a></li>
-                <li class="nav-item"><a href="#contact" data-translate="contact">Contact</a></li>
-            </ul>
-            <div class="lang-selector">
-                <button class="lang-btn active" onclick="changeLanguage('en')">EN</button>
-                <button class="lang-btn" onclick="changeLanguage('ka')">🇬🇪 GE</button>
-                <button class="lang-btn" onclick="changeLanguage('ar')">🇸🇦 AR</button>
-                <button class="lang-btn" onclick="changeLanguage('ru')">🇷🇺 RU</button>
-                <button class="lang-btn" onclick="changeLanguage('tr')">🇹🇷 TR</button>
+    <div class="animated-bg"></div>
+    <div class="grid-overlay"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+    
+    <nav>
+        <div class="nav-content">
+            <div class="logo">zvio</div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#contact">Contact</a>
             </div>
-            <button class="mobile-menu-toggle"><i class="fas fa-bars"></i></button>
         </div>
-    </header>
+    </nav>
 
     <section class="hero">
         <div class="hero-content">
-            <h1 data-translate="heroTitle">Discover Serenity at Orbi City</h1>
-            <p data-translate="heroSubtitle">Elevate your stay in Batumi's vibrant seaside with our curated luxury apartments, blending modern elegance with breathtaking Black Sea views.</p>
+            <div class="badge">✦ Available For Work</div>
+            <h1>
+                Creative Developer<br>
+                <span class="gradient-text">& Designer</span>
+            </h1>
+            <p>
+                Crafting exceptional digital experiences through code and design. 
+                Specializing in full-stack development, game design, and immersive user interfaces.
+            </p>
             <div class="cta-buttons">
-                <a href="#booking" class="btn-primary"><i class="fas fa-search"></i> <span data-translate="findRooms">Find Your Room</span></a>
-                <a href="#amenities" class="btn-secondary"><i class="fas fa-star"></i> <span data-translate="explore">Explore Amenities</span></a>
+                <a href="#contact" class="btn btn-primary">Let's Talk</a>
+                <a href="#skills" class="btn btn-secondary">Explore Work</a>
             </div>
         </div>
-        <form id="booking" class="booking-overlay">
-            <div class="form-group">
-                <label data-translate="checkIn">Check-in</label>
-                <input type="date" id="checkin" required min="">
-            </div>
-            <div class="form-group">
-                <label data-translate="checkOut">Check-out</label>
-                <input type="date" id="checkout" required min="">
-            </div>
-            <div class="form-group">
-                <label data-translate="guests">Guests</label>
-                <select id="guests">
-                    <option value="1">1 Guest</option>
-                    <option value="2">2 Guests</option>
-                    <option value="3">3 Guests</option>
-                    <option value="4">4 Guests</option>
-                    <option value="5">5+ Guests</option>
-                </select>
-            </div>
-            <button type="submit" class="search-btn" data-translate="searchBtn"><i class="fas fa-search"></i> <span data-translate="searchRooms">Search Availability</span></button>
-        </form>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
     </section>
 
-    <section id="rooms" class="section-padding">
+    <section id="skills" class="section">
         <div class="container">
-            <h2 class="section-title" data-translate="ourRooms">Featured Residences</h2>
-            <div class="rooms-grid" id="roomsGrid">
-                <!-- Rooms will be populated by JS -->
+            <div class="section-header reveal">
+                <div class="section-tag">Expertise</div>
+                <h2 class="section-title">What I Bring</h2>
+                <p class="section-subtitle">
+                    Combining technical excellence with creative vision to build remarkable digital products
+                </p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card reveal">
+                    <div class="skill-icon">⚡</div>
+                    <h3>Web Development</h3>
+                    <p>Architecting modern, performant web applications with clean code and scalable solutions.</p>
+                </div>
+                <div class="skill-card reveal">
+                    <div class="skill-icon">🎮</div>
+                    <h3>Game Development</h3>
+                    <p>Building immersive Roblox experiences with complex mechanics and engaging gameplay systems.</p>
+                </div>
+                <div class="skill-card reveal">
+                    <div class="skill-icon">🎨</div>
+                    <h3>UI/UX Design</h3>
+                    <p>Creating beautiful, intuitive interfaces that users love with attention to every detail.</p>
+                </div>
+                <div class="skill-card reveal">
+                    <div class="skill-icon">⚙️</div>
+                    <h3>Backend Engineering</h3>
+                    <p>Developing robust server architecture and APIs that power seamless digital experiences.</p>
+                </div>
+            </div>
+
+            <div class="languages reveal">
+                <div class="lang-tag">Lua</div>
+                <div class="lang-tag">Python</div>
+                <div class="lang-tag">JavaScript</div>
+                <div class="lang-tag">C++</div>
+                <div class="lang-tag">Computer Science</div>
             </div>
         </div>
     </section>
 
-    <section id="amenities" class="features section-padding">
+    <section id="contact" class="contact-section">
+        <div class="container reveal">
+            <div class="section-tag">Get In Touch</div>
+            <h2 class="section-title">Let's Create Together</h2>
+            <p style="color: rgba(255, 255, 255, 0.5); font-size: 18px; margin: 20px auto 0; max-width: 600px;">
+                Open to exciting projects, collaborations, and opportunities. Let's build something amazing.
+            </p>
+            <div class="contact-links">
+                <a href="https://instagram.com/zv.gegidz3" target="_blank" class="contact-card">
+                    <div class="platform">Instagram</div>
+                    <div class="handle">@zv.gegidz3</div>
+                </a>
+                <a href="#" class="contact-card" onclick="copyDiscord(event)">
+                    <div class="platform">Discord</div>
+                    <div class="handle">zvio0172</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
         <div class="container">
-            <h2 class="section-title" data-translate="amenities">World-Class Amenities</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-wifi"></i></div>
-                    <h3 data-translate="freeWifi">Ultra-Fast WiFi</h3>
-                    <p data-translate="wifiDesc">Seamless connectivity with speeds up to 1Gbps across every corner of our property.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-parking"></i></div>
-                    <h3 data-translate="parking">Valet Parking</h3>
-                    <p data-translate="parkingDesc">Complimentary secure valet service with 24/7 surveillance for peace of mind.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-swimming-pool"></i></div>
-                    <h3 data-translate="pool">Infinity Pool</h3>
-                    <p data-translate="poolDesc">Rooftop infinity pool overlooking the endless Black Sea horizon.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-dumbbell"></i></div>
-                    <h3 data-translate="gym">24/7 Fitness Studio</h3>
-                    <p data-translate="gymDesc">State-of-the-art equipment and personal training sessions available on request.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-spa"></i></div>
-                    <h3 data-translate="spa">Spa & Wellness</h3>
-                    <p data-translate="spaDesc">Indulge in therapeutic massages and rejuvenating treatments with sea-inspired therapies.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-utensils"></i></div>
-                    <h3 data-translate="dining">Gourmet Dining</h3>
-                    <p data-translate="diningDesc">On-site restaurant serving fusion Georgian-Mediterranean cuisine with fresh, local ingredients.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="testimonials section-padding">
-        <div class="container">
-            <h2 class="section-title" data-translate="testimonials">Guest Stories</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"Orbi City turned our family vacation into a dream escape. The views from the suite were unforgettable, and the staff made us feel right at home."</p>
-                    <div class="testimonial-author">- Maria K., Tbilisi</div>
-                </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"As a solo traveler, the studio was perfect—cozy yet luxurious. The pool at sunset? Magic. I'll be back for sure."</p>
-                    <div class="testimonial-author">- Alex R., Istanbul</div>
-                </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-text">"Business trip elevated! Fast WiFi, gym access, and that sea view kept me productive and relaxed."</p>
-                    <div class="testimonial-author">- David L., Dubai</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="gallery" class="section-padding">
-        <div class="container">
-            <h2 class="section-title" data-translate="gallery">Visual Escape</h2>
-            <div class="gallery">
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1618221195710-dd6b41e91920?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pool View"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Suite Interior"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Seafront"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Studio"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Deluxe Room"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dining Area"></div>
-            </div>
-        </div>
-    </section>
-
-    <footer id="contact" class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3 data-translate="contactUs">Get In Touch</h3>
-                <p><i class="fas fa-phone"></i> +995 555 123 456</p>
-                <p><i class="fas fa-envelope"></i> <a href="mailto:info@orbicity.ge">info@orbicity.ge</a></p>
-                <p><i class="fas fa-map-marker-alt"></i> <span data-translate="address">Orbi City Residences, Rustaveli Ave 12, Batumi 6010, Georgia</span></p>
-            </div>
-            <div class="footer-section">
-                <h3 data-translate="quickLinks">Quick Links</h3>
-                <p><a href="#rooms" data-translate="rooms">Rooms</a></p>
-                <p><a href="#amenities" data-translate="amenities">Amenities</a></p>
-                <p><a href="#gallery" data-translate="gallery">Gallery</a></p>
-                <p><a href="#" data-translate="privacy">Privacy Policy</a></p>
-            </div>
-            <div class="footer-section">
-                <h3 data-translate="followUs">Stay Connected</h3>
-                <p><a href="#"><i class="fab fa-facebook"></i> Facebook</a></p>
-                <p><a href="#"><i class="fab fa-instagram"></i> Instagram</a></p>
-                <p><a href="#"><i class="fab fa-twitter"></i> X (Twitter)</a></p>
-                <p><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Orbi City Residences. <span data-translate="rights">Crafted with care in Batumi.</span> All rights reserved.</p>
+            <p>© 2025 zvio. Designed & Developed with passion.</p>
         </div>
     </footer>
 
-    <!-- Booking Modal -->
-    <div id="bookingModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h2 data-translate="bookingDetails">Complete Your Booking</h2>
-            <form class="guest-form" id="guestForm">
-                <input type="text" placeholder="Full Name" required>
-                <input type="email" placeholder="Email Address" required>
-                <input type="tel" placeholder="Phone Number" required>
-                <textarea placeholder="Special Requests" rows="3"></textarea>
-                <button type="submit" class="submit-booking" data-translate="confirmBooking">Confirm & Pay Securely</button>
-            </form>
-        </div>
-    </div>
-
     <script>
-        // Room data with simulated availability
-        const roomsData = [
-            {
-                id: 1,
-                titleKey: 'room1Title',
-                descKey: 'room1Desc',
-                image: 'https://images.unsplash.com/photo-1618221195710-dd6b41e91920?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                price: 145,
-                beds: 2,
-                amenities: ['🛏️ King Beds', '📶 WiFi', '🌊 Sea View', '🅿️ Valet Parking'],
-                badge: 'Popular'
-            },
-            {
-                id: 2,
-                titleKey: 'room2Title',
-                descKey: 'room2Desc',
-                image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                price: 220,
-                beds: 3,
-                amenities: ['🛏️ Queen Beds', '🍳 Full Kitchen', '👨‍👩‍👧 Family', '🏠 Balcony'],
-                badge: 'Family Pick'
-            },
-            {
-                id: 3,
-                titleKey: 'room3Title',
-                descKey: 'room3Desc',
-                image: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                price: 110,
-                beds: 1,
-                amenities: ['🛏️ Queen Bed', '📺 Smart TV', '☕ Coffee Station', '🚿 Rain Shower'],
-                badge: 'Cozy'
-            },
-            {
-                id: 4,
-                titleKey: 'room4Title',
-                descKey: 'room4Desc',
-                image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                price: 180,
-                beds: 2,
-                amenities: ['🛏️ Twin Beds', '💼 Work Desk', '🌆 City View', '🛋️ Lounge Area'],
-                badge: 'Business'
-            }
-        ];
+        const cursorGlow = document.getElementById('cursorGlow');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+        });
 
-        const translations = {
-            en: {
-                title: "Orbi City",
-                heroTitle: "Discover Serenity at Orbi City",
-                heroSubtitle: "Elevate your stay in Batumi's vibrant seaside with our curated luxury apartments, blending modern elegance with breathtaking Black Sea views.",
-                findRooms: "Find Your Room",
-                explore: "Explore Amenities",
-                checkIn: "Check-in Date",
-                checkOut: "Check-out Date",
-                guests: "Number of Guests",
-                searchBtn: "Search Availability",
-                searchRooms: "Search Rooms",
-                ourRooms: "Featured Residences",
-                room1Title: "Oceanfront Deluxe",
-                room1Desc: "Expansive 1-bedroom with wraparound balcony and private plunge pool access.",
-                room2Title: "Grand Family Loft",
-                room2Desc: "Multi-level suite with kids' nook, game room, and ocean-inspired decor.",
-                room3Title: "Urban Studio Haven",
-                room3Desc: "Compact yet chic space with smart home features and artisanal touches.",
-                room4Title: "Executive Penthouse",
-                room4Desc: "Top-floor retreat with rooftop terrace, wet bar, and skyline panoramas.",
-                beds: "Beds",
-                bed: "Bed",
-                parking: "Parking",
-                kitchen: "Kitchen",
-                seaview: "Sea View",
-                coffee: "Coffee",
-                night: "per night",
-                bookNow: "Reserve Now",
-                amenities: "World-Class Amenities",
-                freeWifi: "Ultra-Fast WiFi",
-                wifiDesc: "Seamless connectivity with speeds up to 1Gbps across every corner of our property.",
-                parkingDesc: "Complimentary secure valet service with 24/7 surveillance for peace of mind.",
-                pool: "Infinity Pool",
-                poolDesc: "Rooftop infinity pool overlooking the endless Black Sea horizon.",
-                gym: "24/7 Fitness Studio",
-                gymDesc: "State-of-the-art equipment and personal training sessions available on request.",
-                spa: "Spa & Wellness",
-                spaDesc: "Indulge in therapeutic massages and rejuvenating treatments with sea-inspired therapies.",
-                dining: "Gourmet Dining",
-                diningDesc: "On-site restaurant serving fusion Georgian-Mediterranean cuisine with fresh, local ingredients.",
-                testimonials: "Guest Stories",
-                bookingDetails: "Complete Your Booking",
-                confirmBooking: "Confirm & Pay Securely",
-                contactUs: "Get In Touch",
-                quickLinks: "Quick Links",
-                rooms: "Rooms",
-                gallery: "Gallery",
-                privacy: "Privacy Policy",
-                address: "Orbi City Residences, Rustaveli Ave 12, Batumi 6010, Georgia",
-                followUs: "Stay Connected",
-                rights: "Crafted with care in Batumi. All rights reserved."
-            },
-            ka: {
-                title: "ორბი სითი",
-                heroTitle: "გაიმართე სიმშვიდე ორბი სითიში",
-                heroSubtitle: "ბათუმის ცოცხალი სანაპიროზე დაემატე შენს დასვენებას ჩვენი შერჩეული ლუქსის აპარტამენტებით, თანამედროვე ელეგანტურობისა და შავი ზღვის შემბურთაველი ხედებით.",
-                findRooms: "იპოვე შენი ნომერი",
-                explore: "ამენიტიების შესწავლა",
-                checkIn: "შესვლის თარიღი",
-                checkOut: "გასვლის თარიღი",
-                guests: "სტუმრების რაოდენობა",
-                searchBtn: "ხელმისაწვდომობის ძებნა",
-                searchRooms: "ნომრების ძებნა",
-                ourRooms: "ძირითადი რეზიდენციები",
-                room1Title: "ოკეანის ხედის დელუქსი",
-                room1Desc: "ფართო 1-ჭერა ბალკონით და კერძო აუზის წვდომით.",
-                room2Title: "დიდი ოჯახური ლოფტი",
-                room2Desc: "მრავალდონიანი სუიტი ბავშვების კუთხით, თამაშის ოთახით და ოკეანის შთაგონებული დეკორით.",
-                room3Title: "ქალაქური სტუდიის თავშესაფარი",
-                room3Desc: "კომპაქტური მაგრამ შარგი სივრცე სმარტ ჰოუსის ფუნქციებით და ხელნაკეთი შეხებებით.",
-                room4Title: "ეკსპერტული პენტჰაუსი",
-                room4Desc: "ზედა სართულიანი რიტრიტი სახურავის ტერასით, დამატენიანებელი ბარით და პანორამული ხედებით.",
-                beds: "საწოლები",
-                bed: "საწოლი",
-                parking: "პარკინგი",
-                kitchen: "სამზარეულო",
-                seaview: "ზღვის ხედი",
-                coffee: "ყავა",
-                night: "ღამეში",
-                bookNow: "განათავსება ახლა",
-                amenities: "მსოფლიო კლასის ამენიტიები",
-                freeWifi: "ულტრა-სწრაფი WiFi",
-                wifiDesc: "უწყვეტი კავშირი 1Gbps სიჩქარით მთელ ქონებაში.",
-                parkingDesc: "უფასო უსაფრთხო ვალეტი 24/7 მონიტორინგით.",
-                pool: "ინფინიტი აუზი",
-                poolDesc: "სახურავის ინფინიტი აუზი შავი ზღვის ჰორიზონტზე.",
-                gym: "24/7 ფიტნეს სტუდია",
-                gymDesc: "სახელმწიფო-ოფ-არტ აღჭურვილობა და პერსონალური ტრენინგი მოთხოვნის მიხედვით.",
-                spa: "სპა & ველნესი",
-                spaDesc: "თერაპიული მასაჟები და რეჯუვენაციის მკურნალობა ზღვის შთაგონებული თერაპიებით.",
-                dining: "გურმანული დღესასწაული",
-                diningDesc: "საიტზე რესტორანი საქართველო-მედიტერანული ფუზიის მსხვილი ადგილობრივი ინგრედიენტებით.",
-                testimonials: "სტუმრების ისტორიები",
-                bookingDetails: "შეავსე შენი დაჯავშნა",
-                confirmBooking: "დადასტურება და უსაფრთხო გადახდა",
-                contactUs: "დაგვიკავშირდი",
-                quickLinks: "სწრაფი ბმულები",
-                rooms: "ნომრები",
-                gallery: "გალერეა",
-                privacy: "კონფიდენციალურობის პოლიტიკა",
-                address: "ორბი სითი რეზიდენსები, რუსთაველის გზა 12, ბათუმი 6010, საქართველო",
-                followUs: "დაგვყევი",
-                rights: "შექმნილი ზრუნვით ბათუმში. ყველა უფლება დაცულია."
-            },
-            ar: {
-                title: "أوربي سيتي",
-                heroTitle: "اكتشف الهدوء في أوربي سيتي",
-                heroSubtitle: "ارفع إقامتك في شواطئ باتومي النابضة بالحياة مع شققنا الفاخرة المختارة بعناية، تجمع بين الأناقة الحديثة وإطلالات مذهلة على البحر الأسود.",
-                findRooms: "ابحث عن غرفتك",
-                explore: "استكشف المرافق",
-                checkIn: "تاريخ الوصول",
-                checkOut: "تاريخ المغادرة",
-                guests: "عدد الضيوف",
-                searchBtn: "البحث عن التوافر",
-                searchRooms: "البحث عن الغرف",
-                ourRooms: "الإقامات المميزة",
-                room1Title: "ديلوكس أمام المحيط",
-                room1Desc: "غرفة نوم واسعة مع شرفة محيطية ووصول خاص إلى حمام سباحة صغير.",
-                room2Title: "لوفت عائلي كبير",
-                room2Desc: "جناح متعدد المستويات مع ركن للأطفال وغرفة ألعاب وديكور مستوحى من المحيط.",
-                room3Title: "ملاذ ستوديو حضري",
-                room3Desc: "مساحة مدمجة لكن أنيقة مع ميزات المنزل الذكي واللمسات الحرفية.",
-                room4Title: "بنتهاوس تنفيذي",
-                room4Desc: "ملاذ في الطابق العلوي مع تراس على السطح، بار رطب، وإطلالات بانورامية على السماء.",
-                beds: "أسرة",
-                bed: "سرير",
-                parking: "مواقف السيارات",
-                kitchen: "مطبخ",
-                seaview: "إطلالة بحرية",
-                coffee: "قهوة",
-                night: "لليلة",
-                bookNow: "احجز الآن",
-                amenities: "مرافق عالمية المستوى",
-                freeWifi: "واي فاي فائق السرعة",
-                wifiDesc: "اتصال سلس بسرعات تصل إلى 1Gbps في كل ركن من ممتلكاتنا.",
-                parkingDesc: "خدمة فاليت آمنة مجانية مع مراقبة 24/7 للراحة الذهنية.",
-                pool: "حمام سباحة لا نهائي",
-                poolDesc: "حمام سباحة لا نهائي على السطح يطل على أفق البحر الأسود اللامتناهي.",
-                gym: "استوديو لياقة 24/7",
-                gymDesc: "معدات حديثة وجلسات تدريب شخصية متاحة عند الطلب.",
-                spa: "سبا ورفاهية",
-                spaDesc: "استمتع بتدليك علاجي وعلاجات تجديد مع علاجات مستوحاة من البحر.",
-                dining: "طعام فاخر",
-                diningDesc: "مطعم في الموقع يقدم مطبخ جورجي-متوسطي مختلط مع مكونات محلية طازجة.",
-                testimonials: "قصص الضيوف",
-                bookingDetails: "أكمل حجزك",
-                confirmBooking: "تأكيد ودفع آمن",
-                contactUs: "تواصل معنا",
-                quickLinks: "روابط سريعة",
-                rooms: "غرف",
-                gallery: "معرض",
-                privacy: "سياسة الخصوصية",
-                address: "إقامات أوربي سيتي، شارع روستافيلي 12، باتومي 6010، جورجيا",
-                followUs: "ابق على اتصال",
-                rights: "صُنع بعناية في باتومي. جميع الحقوق محفوظة."
-            },
-            ru: {
-                title: "Орби Сити",
-                heroTitle: "Откройте спокойствие в Орби Сити",
-                heroSubtitle: "Поднимите свой отдых на живописном побережье Батуми с нашими тщательно подобранными люксовыми апартаментами, сочетающими современную элегантность с захватывающими видами на Черное море.",
-                findRooms: "Найти номер",
-                explore: "Исследовать удобства",
-                checkIn: "Дата заезда",
-                checkOut: "Дата выезда",
-                guests: "Количество гостей",
-                searchBtn: "Поиск доступности",
-                searchRooms: "Поиск номеров",
-                ourRooms: "Избранные резиденции",
-                room1Title: "Делюкс у океана",
-                room1Desc: "Просторная спальня с круговой балкон и доступом к частному мини-бассейну.",
-                room2Title: "Большой семейный лофт",
-                room2Desc: "Многоуровневый сьют с уголком для детей, игровой комнатой и декором в океанском стиле.",
-                room3Title: "Городское убежище-студия",
-                room3Desc: "Компактное, но стильное пространство с умным домом и ремесленными акцентами.",
-                room4Title: "Исполнительный пентхаус",
-                room4Desc: "Убежище на верхнем этаже с террасой на крыше, мокрым баром и панорамными видами на горизонт.",
-                beds: "Кровати",
-                bed: "Кровать",
-                parking: "Парковка",
-                kitchen: "Кухня",
-                seaview: "Вид на море",
-                coffee: "Кофе",
-                night: "за ночь",
-                bookNow: "Забронировать сейчас",
-                amenities: "Удобства мирового класса",
-                freeWifi: "Ультра-быстрый WiFi",
-                wifiDesc: "Бесшовное подключение со скоростями до 1Gbps по всем уголкам нашего имущества.",
-                parkingDesc: "Бесплатная безопасная услуга валета с круглосуточным наблюдением для спокойствия.",
-                pool: "Бассейн-инфинити",
-                poolDesc: "Крышный бассейн-инфинити с видом на бесконечный горизонт Черного моря.",
-                gym: "Фитнес-студия 24/7",
-                gymDesc: "Состояние искусства оборудования и персональные тренировки по запросу.",
-                spa: "Спа и велнес",
-                spaDesc: "Наслаждайтесь терапевтическими массажами и омолаживающими процедурами с морскими терапиями.",
-                dining: "Гурманская кухня",
-                diningDesc: "Ресторан на месте, подающий фьюжн грузинско-средиземноморскую кухню с свежими местными ингредиентами.",
-                testimonials: "Истории гостей",
-                bookingDetails: "Завершите бронирование",
-                confirmBooking: "Подтвердить и оплатить безопасно",
-                contactUs: "Свяжитесь с нами",
-                quickLinks: "Быстрые ссылки",
-                rooms: "Номера",
-                gallery: "Галерея",
-                privacy: "Политика конфиденциальности",
-                address: "Резиденции Орби Сити, ул. Руставели 12, Батуми 6010, Грузия",
-                followUs: "Оставайтесь на связи",
-                rights: "Создано с заботой в Батуми. Все права защищены."
-            },
-            tr: {
-                title: "Orbi City",
-                heroTitle: "Orbi City'de Sükûneti Keşfedin",
-                heroSubtitle: "Batum'un canlı sahilinde konaklamanızı, modern zarafeti büyüleyici Karadeniz manzaralarıyla harmanlayan özenle seçilmiş lüks dairelerimizle yükseltin.",
-                findRooms: "Odanızı Bulun",
-                explore: "Olanakları Keşfedin",
-                checkIn: "Giriş Tarihi",
-                checkOut: "Çıkış Tarihi",
-                guests: "Misafir Sayısı",
-                searchBtn: "Uygunluk Ara",
-                searchRooms: "Oda Ara",
-                ourRooms: "Öne Çıkan Konutlar",
-                room1Title: "Okyanus Manzaralı Deluxe",
-                room1Desc: "Çevreleyen balkonlu geniş yatak odası ve özel dalış havuzuna erişim.",
-                room2Title: "Büyük Aile Loftu",
-                room2Desc: "Çocuk köşesi, oyun odası ve okyanus esintili dekorlu çok katlı süit.",
-                room3Title: "Şehir Stüdyo Sığınağı",
-                room3Desc: "Akıllı ev özellikleri ve el yapımı dokunuşlarla kompakt ama şık alan.",
-                room4Title: "Yönetici Penthouse",
-                room4Desc: "Çatı terası, ıslak bar ve ufuk panoramik manzaralı üst kat inzivası.",
-                beds: "Yataklar",
-                bed: "Yatak",
-                parking: "Park Etme",
-                kitchen: "Mutfak",
-                seaview: "Deniz Manzarası",
-                coffee: "Kahve",
-                night: "gece başına",
-                bookNow: "Şimdi Rezervasyon Yap",
-                amenities: "Dünya Sınıfı Olanaklar",
-                freeWifi: "Ultra Hızlı WiFi",
-                wifiDesc: "Mülkümüzün her köşesinde 1Gbps'ye kadar hızlarla kesintisiz bağlantı.",
-                parkingDesc: "Huzur için 7/24 gözetimle ücretsiz güvenli valet hizmeti.",
-                pool: "Sonsuzluk Havuzu",
-                poolDesc: "Karadeniz ufku'na bakan çatı sonsuzluk havuzu.",
-                gym: "7/24 Fitness Stüdyosu",
-                gymDesc: "Son teknoloji ekipman ve istek üzerine kişisel antrenman seansları.",
-                spa: "Spa & Wellness",
-                spaDesc: "Deniz esintili terapilerle terapötik masajlar ve yenileyici tedavilerle şımartın.",
-                dining: "Gurme Yemek",
-                diningDesc: "Taze yerel malzemelerle Gürcü-Akdeniz füzyon mutfağı sunan yerinde restoran.",
-                testimonials: "Misafir Hikayeleri",
-                bookingDetails: "Rezervasyonunuzu Tamamlayın",
-                confirmBooking: "Onayla ve Güvenli Öde",
-                contactUs: "İletişime Geçin",
-                quickLinks: "Hızlı Bağlantılar",
-                rooms: "Odalar",
-                gallery: "Galeri",
-                privacy: "Gizlilik Politikası",
-                address: "Orbi City Konutları, Rustaveli Cad. 12, Batum 6010, Gürcistan",
-                followUs: "Bağlantıda Kalın",
-                rights: "Batum'da özenle hazırlanmış. Tüm hakları saklıdır."
-            }
-        };
+        function copyDiscord(e) {
+            e.preventDefault();
+            navigator.clipboard.writeText('zvio0172');
+            const card = e.currentTarget;
+            const originalText = card.querySelector('.handle').textContent;
+            card.querySelector('.handle').textContent = '✓ Copied!';
+            setTimeout(() => {
+                card.querySelector('.handle').textContent = originalText;
+            }, 2000);
+        }
 
-        let currentLang = 'en';
-        let bookings = JSON.parse(localStorage.getItem('orbiBookings')) || [];
-
-        function changeLanguage(lang) {
-            currentLang = lang;
-            const elements = document.querySelectorAll('[data-translate]');
-            elements.forEach(el => {
-                const key = el.getAttribute('data-translate');
-                if (translations[lang] && translations[lang][key]) {
-                    el.textContent = translations[lang][key];
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
             });
-
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            if (lang === 'ar') {
-                document.body.classList.add('rtl');
-            } else {
-                document.body.classList.remove('rtl');
-            }
-
-            renderRooms();
-        }
-
-        function renderRooms(availableRooms = roomsData) {
-            const grid = document.getElementById('roomsGrid');
-            grid.innerHTML = availableRooms.map(room => `
-                <div class="room-card">
-                    <div class="availability-indicator"></div>
-                    <img src="${room.image}" alt="${translations[currentLang][room.titleKey] || ''}" class="room-image">
-                    <span class="room-badge">${room.badge}</span>
-                    <div class="room-content">
-                        <h3 class="room-title">${translations[currentLang][room.titleKey]}</h3>
-                        <p class="room-description">${translations[currentLang][room.descKey]}</p>
-                        <div class="room-meta">
-                            <span><i class="fas fa-bed"></i> ${room.beds} ${translations[currentLang].beds || 'Beds'}</span>
-                            <span class="room-price">$${room.price}<span style="font-size: 0.875rem; color: var(--text-light);">${translations[currentLang].night || 'per night'}</span></span>
-                        </div>
-                        <div class="amenities">
-                            ${room.amenities.map(amen => `<span class="amenity">${amen}</span>`).join('')}
-                        </div>
-                        <button class="book-btn" onclick="openBookingModal(${room.id}, ${room.price})">
-                            <i class="fas fa-calendar-check"></i> ${translations[currentLang].bookNow}
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function updateDateMin() {
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('checkin').min = today;
-            document.getElementById('checkout').min = today;
-        }
-
-        document.getElementById('checkin').addEventListener('change', function() {
-            const checkout = document.getElementById('checkout');
-            checkout.min = this.value;
         });
 
-        document.getElementById('booking').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const checkin = document.getElementById('checkin').value;
-            const checkout = document.getElementById('checkout').value;
-            const guests = document.getElementById('guests').value;
-
-            if (!checkin || !checkout || new Date(checkout) <= new Date(checkin)) {
-                alert('Please select valid dates.');
-                return;
-            }
-
-            // Simulate availability check
-            const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000 * 60 * 60 * 24));
-            const totalGuests = parseInt(guests);
-
-            // Filter rooms based on simulated availability (e.g., random for demo)
-            const availableRooms = roomsData.filter(room => {
-                // Simulate: rooms with beds >= guests and random availability
-                return room.beds >= totalGuests && Math.random() > 0.2; // 80% available
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('active');
+                    }, index * 100);
+                }
             });
-
-            if (availableRooms.length === 0) {
-                alert('No rooms available for your dates. Try different dates.');
-                return;
-            }
-
-            renderRooms(availableRooms);
-            // Scroll to rooms
-            document.getElementById('rooms').scrollIntoView({ behavior: 'smooth' });
+        }, {
+            threshold: 0.1
         });
 
-        function openBookingModal(roomId, basePrice) {
-            const modal = document.getElementById('bookingModal');
-            modal.style.display = 'flex';
-            // Store room info in form for submission
-            document.getElementById('guestForm').dataset.roomId = roomId;
-            document.getElementById('guestForm').dataset.basePrice = basePrice;
-        }
-
-        function closeModal() {
-            document.getElementById('bookingModal').style.display = 'none';
-        }
-
-        document.getElementById('guestForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            const roomId = this.dataset.roomId;
-            const basePrice = parseInt(this.dataset.basePrice);
-            const checkin = document.getElementById('checkin').value;
-            const checkout = document.getElementById('checkout').value;
-            const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000 * 60 * 60 * 24));
-            const total = basePrice * nights;
-
-            const booking = {
-                id: Date.now(),
-                roomId,
-                name: formData.get('Full Name') || 'Anonymous',
-                email: formData.get('Email Address'),
-                phone: formData.get('Phone Number'),
-                requests: formData.get('Special Requests'),
-                dates: { checkin, checkout },
-                total,
-                timestamp: new Date().toISOString()
-            };
-
-            bookings.push(booking);
-            localStorage.setItem('orbiBookings', JSON.stringify(bookings));
-
-            alert(`Booking confirmed for Room ${roomId}! Total: $${total}. Check your email for details. (Simulated - In real app, integrate with Stripe/PayPal.)`);
-            closeModal();
+        revealElements.forEach(el => {
+            revealObserver.observe(el);
         });
-
-        window.onclick = function(event) {
-            const modal = document.getElementById('bookingModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        };
-
-        // Initialize
-        updateDateMin();
-        renderRooms();
-        changeLanguage('en'); // Default
     </script>
 </body>
 </html>
