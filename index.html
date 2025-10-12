@@ -3,671 +3,691 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orbi City - Luxury Apartments Batumi</title>
+    <title>Batumi Grand Towers - Premier Apartment Rentals</title>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            --primary-color: #0077b6;
+            --secondary-color: #023e8a;
+            --accent-color: #ffb703;
+            --text-dark: #0d1b2a;
+            --text-light: #6c757d;
+            --background-light: #f8f9fa;
+            --white: #ffffff;
+            --border-color: #dee2e6;
+            --shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.07);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
+        html {
+            scroll-behavior: smooth;
         }
 
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        /* Vue Transition Effects */
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity 0.5s ease;
+        }
+        .fade-enter-from, .fade-leave-to {
+            opacity: 0;
+        }
+        .slide-fade-enter-active {
+            transition: all 0.3s ease-out;
+        }
+        .slide-fade-leave-active {
+            transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+        }
+        .slide-fade-enter-from,
+        .slide-fade-leave-to {
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+
+        /* Main App Container */
+        #app {
+            transition: filter 0.3s ease;
+        }
+        #app.modal-open {
+            filter: blur(5px);
+        }
+
+        /* Header */
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: var(--white);
             padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-light);
+            border-bottom: 1px solid var(--border-color);
         }
-
         .nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
         .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary-color);
         }
-
-        .lang-selector {
+        .nav-links, .lang-selector {
             display: flex;
-            gap: 1rem;
+            align-items: center;
+            gap: 1.5rem;
         }
-
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
         .lang-btn {
-            background: rgba(255,255,255,0.2);
-            border: 2px solid white;
-            color: white;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
             padding: 0.5rem 1rem;
-            border-radius: 25px;
+            border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
-
-        .lang-btn:hover, .lang-btn.active {
-            background: white;
-            color: #667eea;
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
         }
-
+        
+        /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                        url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200') center/cover;
-            height: 600px;
+            background: linear-gradient(rgba(13, 27, 42, 0.6), rgba(13, 27, 42, 0.6)), url('https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: white;
+            color: var(--white);
+            padding: 0 2rem;
         }
-
         .hero-content h1 {
-            font-size: 3.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
             margin-bottom: 1rem;
-            animation: fadeInUp 1s;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
-
         .hero-content p {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            animation: fadeInUp 1s 0.2s backwards;
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Booking Form */
+        .booking-form-wrapper {
+            background-color: var(--background-light);
+            padding: 4rem 0;
         }
-
         .booking-form {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            max-width: 900px;
-            margin: -80px auto 0;
+            max-width: 1200px;
+            margin: -150px auto 0;
             position: relative;
             z-index: 10;
-            animation: fadeInUp 1s 0.4s backwards;
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            align-items: end;
         }
-
         .form-group {
             display: flex;
             flex-direction: column;
         }
-
         .form-group label {
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: #667eea;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+            color: var(--text-dark);
         }
-
         .form-group input, .form-group select {
-            padding: 0.8rem;
-            border: 2px solid #e0e0e0;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
             font-size: 1rem;
-            transition: border 0.3s;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
-
         .form-group input:focus, .form-group select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.1);
         }
-
         .search-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: var(--accent-color);
+            color: var(--text-dark);
             border: none;
-            padding: 1rem 2rem;
+            padding: 1rem;
             border-radius: 8px;
             font-size: 1.1rem;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: transform 0.3s;
-            align-self: end;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s;
+            height: calc(3.25rem); /* Align height with inputs */
         }
-
         .search-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 183, 3, 0.4);
+            background-color: #ffc107;
         }
 
+        /* General Container */
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 4rem 2rem;
+            padding: 6rem 2rem;
         }
-
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #333;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 4rem auto;
         }
 
+        /* Rooms Grid */
         .rooms-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
         }
-
         .room-card {
-            background: white;
+            background: var(--white);
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: var(--shadow-light);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-
         .room-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: translateY(-15px);
+            box-shadow: var(--shadow);
         }
-
+        .room-image-wrapper {
+            position: relative;
+        }
         .room-image {
             width: 100%;
             height: 250px;
             object-fit: cover;
         }
-
+        .room-price {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background: rgba(13, 27, 42, 0.8);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            backdrop-filter: blur(5px);
+        }
         .room-content {
             padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
-
         .room-title {
-            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
             margin-bottom: 0.5rem;
-            color: #333;
         }
-
         .room-description {
-            color: #666;
+            color: var(--text-light);
             margin-bottom: 1rem;
+            flex-grow: 1;
         }
-
-        .room-price {
-            font-size: 1.8rem;
-            color: #667eea;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
         .amenities {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             flex-wrap: wrap;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
         }
-
-        .amenity {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            color: #666;
-            font-size: 0.9rem;
-        }
-
         .book-btn {
             width: 100%;
-            background: #667eea;
-            color: white;
-            border: none;
             padding: 1rem;
-            border-radius: 8px;
+            border: none;
+            background: var(--primary-color);
+            color: var(--white);
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 700;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.2s;
         }
-
         .book-btn:hover {
-            background: #5568d3;
+            background: var(--secondary-color);
+            transform: scale(1.02);
         }
-
-        .features {
-            background: #f8f9fa;
-            padding: 4rem 2rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
-            text-align: center;
-            padding: 2rem;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 1rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
+        
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(13, 27, 42, 0.7);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 1.8rem;
+            z-index: 2000;
+            backdrop-filter: blur(5px);
         }
-
-        .footer {
-            background: #2c3e50;
-            color: white;
-            padding: 3rem 2rem;
+        .modal-content {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 2rem;
             text-align: center;
         }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 1rem;
-            color: #667eea;
-        }
-
-        .footer-section p {
+        .modal-summary p {
             margin-bottom: 0.5rem;
         }
-
-        .rtl {
-            direction: rtl;
+        .modal-form {
+            margin-top: 1.5rem;
         }
     </style>
 </head>
 <body>
+
+<div id="app" :class="{ 'modal-open': isModalVisible }">
+    
     <header class="header">
         <div class="nav-container">
-            <div class="logo" data-translate="title">Orbi City</div>
+            <div class="logo">Batumi Grand</div>
+            <nav class="nav-links">
+                <a href="#rooms" v-text="t('ourRooms')"></a>
+                <a href="#footer" v-text="t('contactUs')"></a>
+            </nav>
             <div class="lang-selector">
-                <button class="lang-btn active" onclick="changeLanguage('en')">EN</button>
-                <button class="lang-btn" onclick="changeLanguage('ka')">🇬🇪 GE</button>
-                <button class="lang-btn" onclick="changeLanguage('ar')">🇸🇦 AR</button>
-                <button class="lang-btn" onclick="changeLanguage('ru')">🇷🇺 RU</button>
-                <button class="lang-btn" onclick="changeLanguage('tr')">🇹🇷 TR</button>
+                <button v-for="lang in availableLangs" :key="lang.code" 
+                        @click="changeLanguage(lang.code)"
+                        :class="{ active: currentLang === lang.code }"
+                        class="lang-btn">
+                    {{ lang.name }}
+                </button>
             </div>
         </div>
     </header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1 data-translate="heroTitle">Welcome to Orbi City</h1>
-            <p data-translate="heroSubtitle">Luxury Apartments in the Heart of Batumi</p>
-        </div>
-    </section>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 v-text="t('heroTitle')"></h1>
+                <p v-text="t('heroSubtitle')"></p>
+            </div>
+        </section>
 
-    <div class="container">
-        <form class="booking-form">
-            <div class="form-group">
-                <label data-translate="checkIn">Check-in</label>
-                <input type="date" required>
-            </div>
-            <div class="form-group">
-                <label data-translate="checkOut">Check-out</label>
-                <input type="date" required>
-            </div>
-            <div class="form-group">
-                <label data-translate="guests">Guests</label>
-                <select>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5+</option>
-                </select>
-            </div>
-            <button type="submit" class="search-btn" data-translate="searchBtn">Search Rooms</button>
-        </form>
-    </div>
-
-    <div class="container">
-        <h2 class="section-title" data-translate="ourRooms">Our Rooms</h2>
-        <div class="rooms-grid">
-            <div class="room-card">
-                <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600" alt="Deluxe Room" class="room-image">
-                <div class="room-content">
-                    <h3 class="room-title" data-translate="room1Title">Deluxe Sea View</h3>
-                    <p class="room-description" data-translate="room1Desc">Spacious apartment with panoramic sea views and modern amenities</p>
-                    <div class="amenities">
-                        <span class="amenity">🛏️ 2 <span data-translate="beds">Beds</span></span>
-                        <span class="amenity">📶 WiFi</span>
-                        <span class="amenity">🅿️ <span data-translate="parking">Parking</span></span>
-                    </div>
-                    <div class="room-price">$120<span style="font-size: 1rem; color: #666;">/<span data-translate="night">night</span></span></div>
-                    <button class="book-btn" data-translate="bookNow">Book Now</button>
+        <div id="booking-form" class="booking-form-wrapper">
+             <form @submit.prevent="searchAvailability" class="booking-form">
+                <div class="form-group">
+                    <label v-text="t('checkIn')"></label>
+                    <input type="date" v-model="search.checkIn" :min="today" required>
                 </div>
-            </div>
-
-            <div class="room-card">
-                <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600" alt="Family Suite" class="room-image">
-                <div class="room-content">
-                    <h3 class="room-title" data-translate="room2Title">Family Suite</h3>
-                    <p class="room-description" data-translate="room2Desc">Perfect for families with separate living area and full kitchen</p>
-                    <div class="amenities">
-                        <span class="amenity">🛏️ 3 <span data-translate="beds">Beds</span></span>
-                        <span class="amenity">🍳 <span data-translate="kitchen">Kitchen</span></span>
-                        <span class="amenity">🌊 <span data-translate="seaview">Sea View</span></span>
-                    </div>
-                    <div class="room-price">$180<span style="font-size: 1rem; color: #666;">/<span data-translate="night">night</span></span></div>
-                    <button class="book-btn" data-translate="bookNow">Book Now</button>
+                <div class="form-group">
+                    <label v-text="t('checkOut')"></label>
+                    <input type="date" v-model="search.checkOut" :min="search.checkIn || today" required>
                 </div>
-            </div>
-
-            <div class="room-card">
-                <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600" alt="Studio Apartment" class="room-image">
-                <div class="room-content">
-                    <h3 class="room-title" data-translate="room3Title">Studio Apartment</h3>
-                    <p class="room-description" data-translate="room3Desc">Cozy studio perfect for couples or solo travelers</p>
-                    <div class="amenities">
-                        <span class="amenity">🛏️ 1 <span data-translate="bed">Bed</span></span>
-                        <span class="amenity">📺 TV</span>
-                        <span class="amenity">☕ <span data-translate="coffee">Coffee</span></span>
-                    </div>
-                    <div class="room-price">$85<span style="font-size: 1rem; color: #666;">/<span data-translate="night">night</span></span></div>
-                    <button class="book-btn" data-translate="bookNow">Book Now</button>
+                <div class="form-group">
+                    <label v-text="t('guests')"></label>
+                    <select v-model.number="search.guests">
+                        <option v-for="n in 5" :value="n">{{ n }}</option>
+                    </select>
                 </div>
-            </div>
+                <button type="submit" class="search-btn" v-text="t('searchBtn')"></button>
+            </form>
         </div>
-    </div>
 
-    <section class="features">
-        <h2 class="section-title" data-translate="amenities">Amenities & Features</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">📶</div>
-                <h3 data-translate="freeWifi">Free WiFi</h3>
-                <p data-translate="wifiDesc">High-speed internet throughout the property</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🅿️</div>
-                <h3 data-translate="parking">Parking</h3>
-                <p data-translate="parkingDesc">Free secure parking for all guests</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🏊</div>
-                <h3 data-translate="pool">Swimming Pool</h3>
-                <p data-translate="poolDesc">Outdoor pool with stunning views</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🏋️</div>
-                <h3 data-translate="gym">Fitness Center</h3>
-                <p data-translate="gymDesc">Modern gym with latest equipment</p>
-            </div>
+        <div id="rooms" class="container">
+            <h2 class="section-title" v-text="t('ourRooms')"></h2>
+            <p class="section-subtitle" v-text="t('roomsSubtitle')"></p>
+            
+            <transition name="slide-fade" mode="out-in">
+                <div v-if="filteredRooms.length > 0" class="rooms-grid">
+                    <div v-for="room in filteredRooms" :key="room.id" class="room-card">
+                        <div class="room-image-wrapper">
+                            <img :src="room.imageUrl" :alt="room.title[currentLang]" class="room-image">
+                            <div class="room-price">${{ room.price }} <span style="font-size: 0.9rem;">/{{ t('night') }}</span></div>
+                        </div>
+                        <div class="room-content">
+                            <h3 class="room-title">{{ room.title[currentLang] }}</h3>
+                            <p class="room-description">{{ room.description[currentLang] }}</p>
+                            <div class="amenities">
+                                <span>🛏️ {{ room.amenities.beds }} {{ t('beds') }}</span>
+                                <span v-if="room.amenities.wifi">📶 WiFi</span>
+                                <span v-if="room.amenities.kitchen">🍳 {{ t('kitchen') }}</span>
+                                <span v-if="room.amenities.seaview">🌊 {{ t('seaview') }}</span>
+                            </div>
+                            <button @click="openBookingModal(room)" class="book-btn" v-text="t('bookNow')"></button>
+                        </div>
+                    </div>
+                </div>
+                <div v-else>
+                    <p class="section-subtitle">{{ t('noRooms') }}</p>
+                </div>
+            </transition>
         </div>
-    </section>
+    </main>
 
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3 data-translate="contactUs">Contact Us</h3>
-                <p>📞 +995 555 123 456</p>
-                <p>✉️ info@orbicity.ge</p>
-            </div>
-            <div class="footer-section">
-                <h3 data-translate="location">Location</h3>
-                <p data-translate="address">Orbi City Complex, Batumi, Georgia</p>
-            </div>
-            <div class="footer-section">
-                <h3 data-translate="followUs">Follow Us</h3>
-                <p>Facebook | Instagram | Twitter</p>
-            </div>
-        </div>
-        <p>&copy; 2024 Orbi City. <span data-translate="rights">All rights reserved.</span></p>
+    <footer id="footer" class="footer" style="background-color: var(--text-dark); color: var(--white); padding: 4rem 2rem; text-align: center;">
+         <div class="logo" style="color: var(--white); margin-bottom: 2rem;">Batumi Grand</div>
+         <p>+995 123 456 789  •  bookings@batumigrand.com</p>
+         <p style="margin-top: 2rem; opacity: 0.7;">&copy; {{ new Date().getFullYear() }} Batumi Grand. {{ t('rights') }}</p>
     </footer>
 
-    <script>
-        const translations = {
-            en: {
-                title: "Orbi City",
-                heroTitle: "Welcome to Orbi City",
-                heroSubtitle: "Luxury Apartments in the Heart of Batumi",
-                checkIn: "Check-in",
-                checkOut: "Check-out",
-                guests: "Guests",
-                searchBtn: "Search Rooms",
-                ourRooms: "Our Rooms",
-                room1Title: "Deluxe Sea View",
-                room1Desc: "Spacious apartment with panoramic sea views and modern amenities",
-                room2Title: "Family Suite",
-                room2Desc: "Perfect for families with separate living area and full kitchen",
-                room3Title: "Studio Apartment",
-                room3Desc: "Cozy studio perfect for couples or solo travelers",
-                beds: "Beds",
-                bed: "Bed",
-                parking: "Parking",
-                kitchen: "Kitchen",
-                seaview: "Sea View",
-                coffee: "Coffee",
-                night: "night",
-                bookNow: "Book Now",
-                amenities: "Amenities & Features",
-                freeWifi: "Free WiFi",
-                wifiDesc: "High-speed internet throughout the property",
-                parkingDesc: "Free secure parking for all guests",
-                pool: "Swimming Pool",
-                poolDesc: "Outdoor pool with stunning views",
-                gym: "Fitness Center",
-                gymDesc: "Modern gym with latest equipment",
-                contactUs: "Contact Us",
-                location: "Location",
-                address: "Orbi City Complex, Batumi, Georgia",
-                followUs: "Follow Us",
-                rights: "All rights reserved."
-            },
-            ka: {
-                title: "ორბი სითი",
-                heroTitle: "კეთილი იყოს თქვენი მობრძანება ორბი სითიში",
-                heroSubtitle: "ლუქსუს აპარტამენტები ბათუმის გულში",
-                checkIn: "დაბინავება",
-                checkOut: "გამოწერა",
-                guests: "სტუმრები",
-                searchBtn: "ძებნა",
-                ourRooms: "ჩვენი ნომრები",
-                room1Title: "დელუქს ზღვის ხედით",
-                room1Desc: "ფართო აპარტამენტი პანორამული ზღვის ხედით და თანამედროვე კეთილმოწყობით",
-                room2Title: "საოჯახო აპარტამენტი",
-                room2Desc: "იდეალურია ოჯახებისთვის ცალკე საცხოვრებელი ფართით და სრული სამზარეულოთი",
-                room3Title: "სტუდია",
-                room3Desc: "მყუდრო სტუდია წყვილებისთვის ან სოლო მოგზაურებისთვის",
-                beds: "საწოლი",
-                bed: "საწოლი",
-                parking: "პარკინგი",
-                kitchen: "სამზარეულო",
-                seaview: "ზღვის ხედი",
-                coffee: "ყავა",
-                night: "ღამე",
-                bookNow: "დაჯავშნა",
-                amenities: "კეთილმოწყობა",
-                freeWifi: "უფასო WiFi",
-                wifiDesc: "მაღალსიჩქარიანი ინტერნეტი მთელს ტერიტორიაზე",
-                parkingDesc: "უფასო დაცული პარკინგი ყველა სტუმრისთვის",
-                pool: "საცურაო აუზი",
-                poolDesc: "გარე აუზი განსაცვიფრებელი ხედებით",
-                gym: "ფიტნეს ცენტრი",
-                gymDesc: "თანამედროვე სავარჯიშო დარბაზი უახლესი აღჭურვილობით",
-                contactUs: "დაგვიკავშირდით",
-                location: "მდებარეობა",
-                address: "ორბი სითი კომპლექსი, ბათუმი, საქართველო",
-                followUs: "გამოგვყევით",
-                rights: "ყველა უფლება დაცულია."
-            },
-            ar: {
-                title: "أوربي سيتي",
-                heroTitle: "مرحباً بك في أوربي سيتي",
-                heroSubtitle: "شقق فاخرة في قلب باتومي",
-                checkIn: "تسجيل الدخول",
-                checkOut: "تسجيل الخروج",
-                guests: "الضيوف",
-                searchBtn: "البحث عن الغرف",
-                ourRooms: "غرفنا",
-                room1Title: "ديلوكس بإطلالة على البحر",
-                room1Desc: "شقة واسعة مع إطلالات بانورامية على البحر ووسائل راحة حديثة",
-                room2Title: "جناح عائلي",
-                room2Desc: "مثالي للعائلات مع منطقة معيشة منفصلة ومطبخ كامل",
-                room3Title: "شقة استوديو",
-                room3Desc: "استوديو مريح مثالي للأزواج أو المسافرين الفرديين",
-                beds: "أسرة",
-                bed: "سرير",
-                parking: "موقف سيارات",
-                kitchen: "مطبخ",
-                seaview: "إطلالة على البحر",
-                coffee: "قهوة",
-                night: "ليلة",
-                bookNow: "احجز الآن",
-                amenities: "المرافق والميزات",
-                freeWifi: "واي فاي مجاني",
-                wifiDesc: "إنترنت عالي السرعة في جميع أنحاء العقار",
-                parkingDesc: "موقف سيارات آمن مجاني لجميع الضيوف",
-                pool: "حمام سباحة",
-                poolDesc: "حمام سباحة خارجي مع مناظر خلابة",
-                gym: "مركز لياقة بدنية",
-                gymDesc: "صالة رياضية حديثة مع أحدث المعدات",
-                contactUs: "اتصل بنا",
-                location: "الموقع",
-                address: "مجمع أوربي سيتي، باتومي، جورجيا",
-                followUs: "تابعنا",
-                rights: "جميع الحقوق محفوظة."
-            },
-            ru: {
-                title: "Орби Сити",
-                heroTitle: "Добро пожаловать в Орби Сити",
-                heroSubtitle: "Роскошные Апартаменты в Сердце Батуми",
-                checkIn: "Заезд",
-                checkOut: "Выезд",
-                guests: "Гости",
-                searchBtn: "Поиск Номеров",
-                ourRooms: "Наши Номера",
-                room1Title: "Делюкс с Видом на Море",
-                room1Desc: "Просторные апартаменты с панорамным видом на море и современными удобствами",
-                room2Title: "Семейные Апартаменты",
-                room2Desc: "Идеально для семей с отдельной гостиной и полностью оборудованной кухней",
-                room3Title: "Квартира-Студия",
-                room3Desc: "Уютная студия идеально подходит для пар или одиноких путешественников",
-                beds: "Кровати",
-                bed: "Кровать",
-                parking: "Парковка",
-                kitchen: "Кухня",
-                seaview: "Вид на Море",
-                coffee: "Кофе",
-                night: "ночь",
-                bookNow: "Забронировать",
-                amenities: "Удобства и Особенности",
-                freeWifi: "Бесплатный WiFi",
-                wifiDesc: "Высокоскоростной интернет по всей территории",
-                parkingDesc: "Бесплатная охраняемая парковка для всех гостей",
-                pool: "Бассейн",
-                poolDesc: "Открытый бассейн с потрясающими видами",
-                gym: "Фитнес-центр",
-                gymDesc: "Современный тренажерный зал с новейшим оборудованием",
-                contactUs: "Свяжитесь с Нами",
-                location: "Расположение",
-                address: "Комплекс Орби Сити, Батуми, Грузия",
-                followUs: "Следите за Нами",
-                rights: "Все права защищены."
-            },
-            tr: {
-                title: "Orbi City",
-                heroTitle: "Orbi City'ye Hoş Geldiniz",
-                heroSubtitle: "Batum'un Kalbinde Lüks Daireler",
-                checkIn: "Giriş",
-                checkOut: "Çıkış",
-                guests: "Misafirler",
-                searchBtn: "Oda Ara",
-                ourRooms: "Odalarımız",
-                room1Title: "Deniz Manzaralı Deluxe",
-                room1Desc: "Panoramik deniz manzarası ve modern olanakları olan geniş daire",
-                room2Title: "Aile Süiti",
-                room2Desc: "Ayrı oturma alanı ve tam mutfaklı aileler için mükemmel",
-                room3Title: "Stüdyo Daire",
-                room3Desc: "Çiftler veya solo gezginler için rahat stüdyo",
-                beds: "Yatak",
-                bed: "Yatak",
-                parking: "Otopark",
-                kitchen: "Mutfak",
-                seaview: "Deniz Manzarası",
-                coffee: "Kahve",
-                night: "gece",
-                bookNow: "Şimdi Rezervasyon Yap",
-                amenities: "Olanaklar ve Özellikler",
-                freeWifi: "Ücretsiz WiFi",
-                wifiDesc: "Tesis genelinde yüksek hızlı internet",
-                parkingDesc: "Tüm misafirler için ücretsiz güvenli otopark",
-                pool: "Yüzme Havuzu",
-                poolDesc: "Muhteşem manzaralı açık havuz",
-                gym: "Fitness Merkezi",
-                gymDesc: "En son ekipmanlı modern spor salonu",
-                contactUs: "Bize Ulaşın",
-                location: "Konum",
-                address: "Orbi City Kompleksi, Batum, Gürcistan",
-                followUs: "Bizi Takip Edin",
-                rights: "Tüm hakları saklıdır."
-            }
-        };
+    <transition name="fade">
+        <div v-if="isModalVisible" class="modal-overlay" @click.self="closeBookingModal">
+            <div class="modal-content">
+                <button @click="closeBookingModal" class="modal-close-btn">&times;</button>
+                
+                <transition name="slide-fade" mode="out-in">
+                    <div v-if="!bookingSuccess" key="form">
+                        <h2 class="modal-title">{{ t('confirmBooking') }}</h2>
+                        <div class="modal-summary">
+                            <p><strong>{{ t('room') }}:</strong> {{ selectedRoom.title[currentLang] }}</p>
+                            <p><strong>{{ t('checkIn') }}:</strong> {{ new Date(search.checkIn).toLocaleDateString() }}</p>
+                            <p><strong>{{ t('checkOut') }}:</strong> {{ new Date(search.checkOut).toLocaleDateString() }}</p>
+                            <p><strong>{{ t('guests') }}:</strong> {{ search.guests }}</p>
+                            <p><strong>{{ t('totalPrice') }}:</strong> ${{ calculateTotalPrice() }}</p>
+                        </div>
+                        <form @submit.prevent="finalizeBooking" class="modal-form">
+                            <div class="form-group">
+                                <label>{{ t('fullName') }}</label>
+                                <input type="text" v-model="bookingDetails.name" required>
+                            </div>
+                            <div class="form-group" style="margin-top: 1rem;">
+                                <label>Email</label>
+                                <input type="email" v-model="bookingDetails.email" required>
+                            </div>
+                            <button type="submit" class="book-btn" style="width: 100%; margin-top: 2rem;">{{ t('completeBooking') }}</button>
+                        </form>
+                    </div>
+                    <div v-else key="success">
+                        <h2 class="modal-title">✅ {{ t('bookingConfirmed') }}</h2>
+                        <p style="text-align: center;">{{ t('bookingSuccessMsg') }}</p>
+                        <button @click="closeBookingModal" class="book-btn" style="width: 100%; margin-top: 2rem;">{{ t('close') }}</button>
+                    </div>
+                </transition>
+            </div>
+        </div>
+    </transition>
 
-        function changeLanguage(lang) {
-            const elements = document.querySelectorAll('[data-translate]');
-            elements.forEach(el => {
-                const key = el.getAttribute('data-translate');
-                if (translations[lang][key]) {
-                    el.textContent = translations[lang][key];
-                }
-            });
+</div>
 
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            if (lang === 'ar') {
-                document.body.classList.add('rtl');
-            } else {
-                document.body.classList.remove('rtl');
-            }
+<script>
+    // Translations Object
+    const translations = {
+        en: {
+            ourRooms: "Our Apartments",
+            contactUs: "Contact Us",
+            heroTitle: "Experience Batumi From The Top",
+            heroSubtitle: "Luxury rentals with unparalleled sea views and five-star amenities.",
+            checkIn: "Check-in Date",
+            checkOut: "Check-out Date",
+            guests: "Guests",
+            searchBtn: "Check Availability",
+            roomsSubtitle: "Select your dates to find the perfect available apartment for your stay.",
+            night: "night",
+            beds: "Beds",
+            kitchen: "Kitchen",
+            seaview: "Sea View",
+            bookNow: "Reserve Now",
+            noRooms: "No apartments available for the selected dates. Please try different dates.",
+            rights: "All Rights Reserved.",
+            confirmBooking: "Confirm Your Reservation",
+            room: "Room",
+            totalPrice: "Total Price",
+            fullName: "Full Name",
+            completeBooking: "Complete Booking",
+            bookingConfirmed: "Booking Confirmed!",
+            bookingSuccessMsg: "Thank you! A confirmation email has been sent to your address.",
+            close: "Close"
+        },
+        ka: {
+            ourRooms: "ჩვენი აპარტამენტები",
+            contactUs: "კონტაქტი",
+            heroTitle: "განიცადე ბათუმი სიმაღლიდან",
+            heroSubtitle: "ლუქს კლასის აპარტამენტები ზღვის ხედით და ხუთვარსკვლავიანი სერვისით.",
+            checkIn: "შესვლის თარიღი",
+            checkOut: "გასვლის თარიღი",
+            guests: "სტუმრები",
+            searchBtn: "შეამოწმე ხელმისაწვდომობა",
+            roomsSubtitle: "აირჩიეთ თარიღები თქვენი დასვენებისთვის იდეალური ბინის მოსაძებნად.",
+            night: "ღამე",
+            beds: "საწოლი",
+            kitchen: "სამზარეულო",
+            seaview: "ზღვის ხედი",
+            bookNow: "დაჯავშნე",
+            noRooms: "მითითებულ თარიღებზე თავისუფალი ბინები არ არის. გთხოვთ, სცადოთ სხვა თარიღები.",
+            rights: "ყველა უფლება დაცულია.",
+            confirmBooking: "დაადასტურეთ ჯავშანი",
+            room: "აპარტამენტი",
+            totalPrice: "სრული ფასი",
+            fullName: "სრული სახელი",
+            completeBooking: "ჯავშნის დასრულება",
+            bookingConfirmed: "ჯავშანი დადასტურებულია!",
+            bookingSuccessMsg: "გმადლობთ! დამადასტურებელი წერილი გამოგზავნილია თქვენს მეილზე.",
+            close: "დახურვა"
         }
+    };
 
-        document.querySelector('.booking-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Booking request submitted! We will contact you shortly.');
-        });
+    // --- BROWSER DATABASE SIMULATION using localStorage ---
+    const Database = {
+        getRooms() {
+            let rooms = JSON.parse(localStorage.getItem('rooms'));
+            if (!rooms) {
+                rooms = this.seedRooms();
+            }
+            return rooms;
+        },
+        getBookings() {
+            return JSON.parse(localStorage.getItem('bookings')) || [];
+        },
+        saveBooking(booking) {
+            const bookings = this.getBookings();
+            bookings.push(booking);
+            localStorage.setItem('bookings', JSON.stringify(bookings));
+        },
+        seedRooms() {
+            const initialRooms = [
+                { id: 1, title: {en: "Azure Horizon Suite", ka: "ლურჯი ჰორიზონტის ლუქსი"}, description: {en: "A stunning suite offering breathtaking panoramic views of the Black Sea.", ka: "განსაცვიფრებელი ლუქსი შავი ზღვის პანორამული ხედებით."}, price: 150, imageUrl: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=2070&auto=format&fit=crop", amenities: {beds: 2, wifi: true, kitchen: true, seaview: true} },
+                { id: 2, title: {en: "City Lights Loft", ka: "ქალაქის შუქების ლოფტი"}, description: {en: "Modern and stylish loft perfect for urban explorers, with a dazzling city view.", ka: "თანამედროვე ლოფტი ქალაქის მკვლევრებისთვის, ბრწყინვალე ხედით."}, price: 120, imageUrl: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?q=80&w=2070&auto=format&fit=crop", amenities: {beds: 1, wifi: true, kitchen: true, seaview: false} },
+                { id: 3, title: {en: "Grand Family Residence", ka: "დიდი საოჯახო რეზიდენცია"}, description: {en: "Spacious two-bedroom residence for families seeking comfort and luxury.", ka: "ფართო ოროთახიანი რეზიდენცია ოჯახებისთვის."}, price: 220, imageUrl: "https://images.unsplash.com/photo-1560185893-a55de8537e4f?q=80&w=1974&auto=format&fit=crop", amenities: {beds: 3, wifi: true, kitchen: true, seaview: true} }
+            ];
+            localStorage.setItem('rooms', JSON.stringify(initialRooms));
+            return initialRooms;
+        }
+    };
 
-        document.querySelectorAll('.book-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                alert('Room booking initiated! Please complete the form above.');
-            });
-        });
-    </script>
+    // --- VUE.JS APPLICATION ---
+    const app = Vue.createApp({
+        data() {
+            return {
+                currentLang: 'en',
+                availableLangs: [{code: 'en', name: 'EN'}, {code: 'ka', name: 'GE'}],
+                allRooms: [],
+                filteredRooms: [],
+                bookings: [],
+                search: {
+                    checkIn: '',
+                    checkOut: '',
+                    guests: 1
+                },
+                isModalVisible: false,
+                selectedRoom: null,
+                bookingDetails: {
+                    name: '',
+                    email: ''
+                },
+                bookingSuccess: false
+            }
+        },
+        computed: {
+            today() {
+                // Returns today's date in YYYY-MM-DD format
+                return new Date().toISOString().split('T')[0];
+            }
+        },
+        methods: {
+            t(key) {
+                return translations[this.currentLang][key] || key;
+            },
+            changeLanguage(lang) {
+                this.currentLang = lang;
+            },
+            searchAvailability() {
+                if (!this.search.checkIn || !this.search.checkOut) {
+                    alert('Please select both check-in and check-out dates.');
+                    return;
+                }
+
+                const searchStart = new Date(this.search.checkIn);
+                const searchEnd = new Date(this.search.checkOut);
+
+                if (searchStart >= searchEnd) {
+                    alert('Check-out date must be after the check-in date.');
+                    return;
+                }
+
+                const available = this.allRooms.filter(room => {
+                    const conflictingBooking = this.bookings.find(booking => {
+                        if (booking.roomId !== room.id) return false;
+                        const bookingStart = new Date(booking.checkIn);
+                        const bookingEnd = new Date(booking.checkOut);
+                        // Check for overlap
+                        return (searchStart < bookingEnd && searchEnd > bookingStart);
+                    });
+                    return !conflictingBooking;
+                });
+
+                this.filteredRooms = available;
+            },
+            openBookingModal(room) {
+                 if (!this.search.checkIn || !this.search.checkOut) {
+                    alert('Please select your dates in the form above before booking.');
+                    // Scroll to form
+                    document.getElementById('booking-form').scrollIntoView({ behavior: 'smooth' });
+                    return;
+                }
+                this.selectedRoom = room;
+                this.isModalVisible = true;
+            },
+            closeBookingModal() {
+                this.isModalVisible = false;
+                this.selectedRoom = null;
+                this.bookingDetails = { name: '', email: '' };
+                this.bookingSuccess = false; // Reset success state
+            },
+            calculateTotalPrice() {
+                if (!this.search.checkIn || !this.search.checkOut || !this.selectedRoom) return 0;
+                const start = new Date(this.search.checkIn);
+                const end = new Date(this.search.checkOut);
+                const nights = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+                return nights * this.selectedRoom.price;
+            },
+            finalizeBooking() {
+                const newBooking = {
+                    bookingId: Date.now(),
+                    roomId: this.selectedRoom.id,
+                    checkIn: this.search.checkIn,
+                    checkOut: this.search.checkOut,
+                    guests: this.search.guests,
+                    customerName: this.bookingDetails.name,
+                    customerEmail: this.bookingDetails.email
+                };
+
+                Database.saveBooking(newBooking);
+                this.bookings.push(newBooking); // Update local state
+                this.bookingSuccess = true;
+                
+                // Refresh the room list to reflect new availability
+                this.searchAvailability();
+            }
+        },
+        created() {
+            // Load all data from our simulated database on app start
+            this.allRooms = Database.getRooms();
+            this.bookings = Database.getBookings();
+            this.filteredRooms = [...this.allRooms]; // Initially show all rooms
+        }
+    });
+
+    app.mount('#app');
+</script>
 </body>
 </html>
+
